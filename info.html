@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Informatique & Tests Logiciels | Habib MAHJOUBI</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* -------- Mini Live Code CSS -------- */
+    .mini-live-code {
+      background: #eaf3fa;
+      border-radius: 14px;
+      padding: 18px 16px 22px 16px;
+      margin-bottom: 30px;
+      margin-top: 26px;
+      max-width: 1000px;
+    }
+    .mini-case-list {
+      margin-bottom: 8px;
+      display: flex; flex-wrap:wrap; gap:7px;
+    }
+    .mini-case-btn {
+      background:#11bba812;
+      border: 1.3px solid #11bba842;
+      color: #127782;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .16s, border-color .16s;
+    }
+    .mini-case-btn:hover, .mini-case-btn.active {
+      background: #11bba8; color: #fff; border-color: #11bba8;
+    }
+    .mini-case-block {
+      font-size: 1em;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      margin: 9px 0 14px 0;
+      background: #f7fafc;
+      border-radius: 8px;
+      padding: 10px 10px;
+      min-height: 83px;
+      color: #127782;
+      white-space: pre-line;
+      border: 1px solid #11bba859;
+      box-shadow: 0 1px 8px #b7e7ff14;
+    }
+    .mini-result {
+      font-size: 1.05em;
+      font-weight: bold;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    .mini-run {
+      background: #11bba8;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 7px;
+      font-size: 1em;
+      padding: 7px 18px;
+      margin: 7px 0 0 0;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .mini-run:hover { background: #127782; }
+  </style>
+</head>
+<body>
+  <canvas id="bg-bugs"></canvas>
+  <main class="page-details">
+  <a href="index.html">&larr; Retour</a>
+  <!-- Hero Bandeau -->
+  <div class="info-hero">
+    <img src="images/code.jpeg" class="info-avatar" alt="Portrait Habib MAHJOUBI">
+    <div class="info-hero-content">
+      <h2>Ingénieur QA Polyvalent</h2>
+      <blockquote>“Garantir la qualité c’est faire du test un moteur d’innovation.”</blockquote>
+    </div>
+  </div>
+  <h2>Master 2 informatique : Ingénierie du test et de la validation logiciels & systèmes</h2>
+  <div class="info-diplome">
+    <span>Université d’Angers & Université Marie et Louis Pasteur / Besançon</span>
+  </div>
+  <p>
+    Spécialisation : tests logiciels, validation de systèmes complexes, QA, automatisation, gestion de projets techniques.
+  </p>
+  <!-- Chronologie expérience façon timeline cards -->
+  <h2>Expériences</h2>
+  <div class="timeline-vertical">
+    <!-- ... (tes events VIF/MCA/OPERIS) ... -->
+    <div class="eventV">
+      <div class="event-yearV">2024-</div>
+      <div class="event-contentV">
+        <img src="images/vif.png" style="height:40px;width:auto;margin-bottom:5px;" alt="VIF">
+        <h3>Chef de projet test & qualité logicielle</h3>
+        <strong>VIF Software • Nantes</strong>
+        <ul>
+          <li>Analyse des exigences : étude des spécifications fonctionnelles et techniques.</li>
+          <li>Définition et mise en œuvre de la stratégie de test en s’alignant avec les objectifs métiers couvrant les tests fonctionnels, performance et de charge.</li>
+          <li>Identification des scénarios et rédaction des cas de tests :</li>
+                  Tests Manuels : rédaction de plans de test, exécution des tests via HP-ALM, réalisation de tests exploratoires, documentation et suivi des bugs (JIRA, SBM).
+                  Tests Automatiques : conception, développement et maintenance de scripts de tests automatisés sur UFT-One et Katalon studio (VBScript, Groovy).
+                  Rédaction et exécution des cas de tests non fonctionnels (Performance & charge) avec JMeter.
+          <li>Analyse des Résultats : analyse des résultats pour identifier les régressions, génération de rapports et communication des résultats aux équipes concernées.</li>
+          <li>Mise en place des indicateurs clés de performance KPI pour le suivi des activités de tests.</li>
+          <li>Pilotage de compagnes de tests.</li>
+          <li>Coordination des actions entre l’équipe test, développement et l’équipe produit.</li>
+          <li>Communication proactive avec les parties prenantes internes et externes.</li>
+        </ul>
+      </div>
+    </div>
+    <!-- ... autres expériences ... -->
+    <div class="eventV">
+      <div class="event-yearV">2023-2024</div>
+      <div class="event-contentV">
+        <img src="images/mca.jpeg" style="height:40px;width:auto;margin-bottom:5px;" alt="MCA">
+        <h3>Consultant test et validation</h3>
+        <strong>MCA Ingénierie • Nantes</strong>
+        <ul>
+          <li>Analyse et couverture des exigences métiers, définition des scénarios et rédaction des cas de tests.</li>
+          <li>Automatisation des tests (application bureau et web), avec UFT-One et Katalon studio.</li>
+          <li>Pilotage de tests non fonctionnels : lancement et exploitation de campagnes de tests de performances (JMeter).</li>
+          <li>Gestion des anomalies : ouverture, suivi et coordination de leur correction via JIRA.</li>
+          <li>Exécution des campagnes de tests de non-régression (TNR) pour garantir la stabilité des fonctionnalités.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="eventV">
+      <div class="event-yearV">2022-2023</div>
+      <div class="event-contentV">
+        <img src="images/Operis.png" style="height:34px;width:auto;margin-bottom:7px;" alt="Operis">
+        <h3>Testeur fonctionnel</h3>
+        <strong>OPERIS • Nantes</strong>
+        <ul>
+          <li>Analyse des exigences métiers et des spécifications pour assurer la couverture des besoins.</li>
+          <li>Rédiger des cas de tests à partir des user story dans Squash-TM.</li>
+          <li>Exécuter les tests</li>
+          <li>Rédiger les anomalies rencontrées et suivre leur résolution dans JIRA</li>
+          <li>Participer au référentiel de tests dans une démarche Agile</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Bloc compétences / outils -->
+  <h2>Compétences & outils</h2>
+  <div class="tech-tags">
+    <span class="tag">Selenium</span>
+    <span class="tag">UFT-One</span>
+    <span class="tag">Katalon Studio</span>
+    <span class="tag">JMeter</span>
+    <span class="tag">HP-ALM</span>
+    <span class="tag">JIRA</span>
+    <span class="tag">CI/CD</span>
+    <span class="tag">Groovy</span>
+    <span class="tag">VBScript</span>
+    <span class="tag">SCRUM</span>
+    <span class="tag">Agile</span>
+    <span class="tag">JMeter</span>
+  </div>
+
+  <!-- Mini Live Code QA Agroalimentaire/VIF (NOUVEAU BLOC) -->
+  <h2>Live Code QA — ERP_VIF</h2>
+  <div class="mini-live-code">
+    <div style="margin-bottom:10px;font-weight:bold;color:#127782;">Scénarios à tester :</div>
+    <div class="mini-case-list">
+      <button onclick="setMiniCode(0)" class="mini-case-btn">✅ Lot conforme</button>
+      <button onclick="setMiniCode(1)" class="mini-case-btn">❌ Lot non valide</button>
+      <button onclick="setMiniCode(2)" class="mini-case-btn">⚠️ Qualité à contrôler</button>
+      <button onclick="setMiniCode(3)" class="mini-case-btn">🗂️ Mauvais ERP</button>
+    </div>
+    <pre id="miniCodeQA" class="mini-case-block">// Habib Mahjoubi – Test QA ERP VIF : Lot conforme
+let lot = { produit: 'semoule', qualite: 'OK', erp: 'VIF' };
+assert(lot.produit === 'semoule');
+assert(lot.qualite === 'OK');
+assert(lot.erp === 'VIF');</pre>
+    <button class="mini-run" onclick="runMiniCodeQA()">Exécuter</button>
+    <span id="miniResultQA" class="mini-result"></span>
+    <div style="font-size:.94em;color:#127782;opacity:.82;margin-top:9px;">
+      Ces tests simulent des validations automatiques sur les lots de production ERP VIF.<br>
+      <span style="font-style:italic;">(Réalisation : Habib Mahjoubi)</span>
+    </div>
+  </div>
+
+  <!-- Certifications modernisées avec logos plus visibles -->
+  <h2>Certifications</h2>
+  <div class="cert-board">
+    <div class="cert-flip" tabindex="0">
+      <div class="cert-flip-inner">
+        <div class="cert-flip-front">
+          <img src="images/ai.png" alt="IBM AI Engineering" />
+          <div>IBM AI Engineering</div>
+        </div>
+        <div class="cert-flip-back">
+          <strong>IBM AI Engineering</strong><br>
+          IBM, 2024<br>
+          Deep learning, PyTorch, Keras
+        </div>
+      </div>
+    </div>
+    <div class="cert-flip">
+      <div class="cert-flip-inner">
+          <div class="cert-flip-front">
+          <img src="images/pmp.png" alt="PMP PMI" />
+          <div>PMP®</div>
+        </div>
+        <div class="cert-flip-back">
+          <strong>Project Management Professional (PMP)</strong><br>
+          PMI, 2024-2027
+        </div>
+      </div>
+    </div>
+    <div class="cert-flip">
+      <div class="cert-flip-inner">
+        <div class="cert-flip-front">
+          <img src="images/istqb.png" alt="ISTQB" />
+          <div>ISTQB Tester</div>
+        </div>
+        <div class="cert-flip-back">
+          <strong>ISTQB Certified Tester Foundation Level</strong><br>
+          2021
+        </div>
+      </div>
+    </div>
+    <div class="cert-flip">
+      <div class="cert-flip-inner">
+        <div class="cert-flip-front">
+          <img src="images/A4q.png" alt="A4Q" />
+          <div>A4Q Selenium</div>
+        </div>
+        <div class="cert-flip-back">
+          <strong>A4Q Certified Selenium Tester Foundation Level</strong><br>
+          2022
+        </div>
+      </div>
+    </div>
+    <div class="cert-flip">
+      <div class="cert-flip-inner">
+          <div class="cert-flip-front">
+          <img src="images/smc.webp" alt="SMC" />
+          <div>Scrum Master (SMC™)</div>
+        </div>
+        <div class="cert-flip-back">
+          <strong>Scrum Master Certified</strong><br>
+          SMC™, 2023-2026
+        </div>
+      </div>
+    </div>
+    <div class="cert-flip">
+      <div class="cert-flip-inner">
+          <div class="cert-flip-front">
+          <img src="images/6sigma.png" alt="6sigma" />
+          <div>Six Sigma YB</div>
+        </div>
+        <div class="cert-flip-back">
+          <strong>Six Sigma Yellow Belt</strong><br>
+          VMEdu, 2023
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="logos-footer" style="margin-top:32px;">
+    <div class="logos-orga">
+      <img src="images/angers.png" alt="Logo angers">
+      <img src="images/franche.png" alt="Logo franche">
+      <img src="images/Operis.png" alt="Logo Operis">
+      <img src="images/mca.jpeg" alt="Logo mca">
+      <img src="images/vif.png" alt="Logo vif">
+    </div>
+  </footer>
+</main>
+<!-- ====================================================== -->
+  <!-- ========== SCRIPT D'ANIMATION À LA FIN DU BODY ======= -->
+  <!-- ====================================================== -->
+  <script>
+  // --- Animation bugs ---
+  window.addEventListener('DOMContentLoaded', function() {
+    function resizeBgBugs() {
+      const c = document.getElementById('bg-bugs');
+      if (!c) return;
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+    }
+    resizeBgBugs();
+    window.addEventListener('resize', resizeBgBugs);
+    function drawBug(ctx, x, y, size, angle, color="#19b2b4") {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, size*0.6, size*0.42, 0, 0, 2 * Math.PI);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.12;
+      ctx.fill();
+      ctx.globalAlpha = 0.17;
+      ctx.strokeStyle = "#165e62";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.globalAlpha = 0.22;
+      ctx.beginPath();
+      ctx.arc(0, -size*0.48, size*0.19, 0, 2 * Math.PI);
+      ctx.fillStyle = "#146c6d";
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(0, -size*0.60);
+      ctx.lineTo(-size*0.19, -size*0.92);
+      ctx.moveTo(0, -size*0.60);
+      ctx.lineTo(size*0.19, -size*0.92);
+      ctx.strokeStyle=color;
+      ctx.lineWidth=1.2;
+      ctx.stroke();
+      for(let i=-1;i<=1;i+=1){
+        ctx.beginPath();
+        ctx.moveTo(-size*0.55, i*size*0.15);
+        ctx.lineTo(-size*0.85, i*size*0.27);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(size*0.55, i*size*0.15);
+        ctx.lineTo(size*0.85, i*size*0.27);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    const NB_BUGS = 11;
+    const bugs = [];
+    for(let i=0;i<NB_BUGS;i++){
+      const angle = Math.random()*Math.PI*2;
+      bugs.push({
+        x: Math.random()*window.innerWidth,
+        y: Math.random()*window.innerHeight,
+        size: 36 + Math.random()*18,
+        angle,
+        speed: 0.15+Math.random()*0.13,
+        dx: Math.cos(angle) * (0.16+Math.random()*0.07),
+        dy: Math.sin(angle) * (0.12+Math.random()*0.06),
+        rot: (Math.random()-0.5)*0.010
+      });
+    }
+    function animateBgBugs(time=0){
+      const c = document.getElementById('bg-bugs');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      const w = c.width, h = c.height;
+      ctx.clearRect(0,0,w,h);
+      for(let bug of bugs){
+        bug.x += bug.dx * bug.speed;
+        bug.y += bug.dy * bug.speed;
+        bug.angle += bug.rot;
+        if(bug.x<0||bug.x>w) { bug.dx *= -1; bug.x = Math.max(8, Math.min(w-8, bug.x)); }
+        if(bug.y<0||bug.y>h){ bug.dy *= -1; bug.y = Math.max(8, Math.min(h-8, bug.y)); }
+        drawBug(ctx, bug.x, bug.y, bug.size, bug.angle);
+      }
+      requestAnimationFrame(animateBgBugs);
+    }
+    animateBgBugs();
+  });
+
+  // Mini Live Code QA Agroalimentaire/VIF
+  const miniCases = [
+`// Cas de test 1 : Lot conforme
+let lot = { produit: 'semoule', qualite: 'OK', erp: 'VIF' };
+assert(lot.produit === 'semoule');
+assert(lot.qualite === 'OK');
+assert(lot.erp === 'VIF');`,
+`// Cas de test 2 : Lot non valide
+let lot = { produit: 'semoule', qualite: 'AVARIE', erp: 'VIF' };
+assert(lot.produit === 'semoule');
+assert(lot.qualite === 'OK'); // erreur attendue
+assert(lot.erp === 'VIF');`,
+`// Cas de test 3 : Qualité à contrôler
+let lot = { produit: 'blé', qualite: 'A CONTROLLER', erp: 'VIF' };
+assert(['OK','A CONTROLLER'].includes(lot.qualite));
+assert(lot.erp === 'VIF');`,
+`// Cas de test 4 : Mauvais ERP
+let lot = { produit: 'pâtes', qualite: 'OK', erp: 'SAP' };
+assert(lot.produit === 'pâtes');
+assert(lot.erp === 'VIF'); // le test échouera car l'ERP différent de VIF
+`
+];
+function setMiniCode(n) {
+  document.getElementById('miniCodeQA').textContent = miniCases[n];
+  document.querySelectorAll('.mini-case-btn').forEach((btn,i)=>btn.classList.toggle('active',i===n));
+  document.getElementById('miniResultQA').textContent='';
+}
+setMiniCode(0);
+function runMiniCodeQA() {
+  let code = document.getElementById('miniCodeQA').textContent;
+  let result = document.getElementById('miniResultQA');
+  result.style.color = "#127782";
+  try {
+    let fn = new Function('assert', code);
+    fn(function(cond) { if (!cond) throw new Error("Test échoué !"); });
+    result.innerHTML = "✅ Test passé !";
+    result.style.color = "#18b481";
+  } catch (e) {
+    result.innerHTML = "❌ " + e.message;
+    result.style.color = "#db4730";
+  }
+  setTimeout(()=>{ result.innerHTML = "" }, 3400);
+}
+
+//pour le bouton retour en bas de la page
+window.addEventListener('scroll', function() {
+  const topBtn = document.getElementById('top-btn');
+  if(topBtn) topBtn.style.display = (window.scrollY > 250) ? 'block' : 'none';
+});
+  </script>
+<a href="#" class="scrolltop-btn" id="top-btn"
+  onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
+  ↑ Retour en haut
+</a>
+</body>
+</html>

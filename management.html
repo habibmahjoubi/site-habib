@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Management & Business | Habib MAHJOUBI</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+/* HERO couleurs harmonisées */
+.mng-hero {
+  padding: 26px 0 30px 0;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  border-radius: 24px;
+  margin-bottom: 20px;
+  background: linear-gradient(110deg,#eaf3fa 55%,#c9eef6 100%);
+  box-shadow: 0 2px 18px #b7e7ff22;
+  position: relative;
+}
+.mng-hero-photo {
+  width: 98px; height: 98px; border-radius: 50%;
+  border: 3px solid #11bba8; object-fit: cover;
+  background:#f8fdff;
+  box-shadow:0 2px 12px #0ff9;
+  margin-left: 23px;
+}
+.mng-hero-content h1 {
+  margin: 0 0 4px 0; color: #11bba8; font-size:2.02em;
+}
+.mng-hero-content .pmp-badge {
+  background: #11bba8; color: #fff; border-radius: 8px;
+  padding: 4px 13px 5px 12px; display: inline-flex; align-items: center;
+  font-size: 1em; font-weight: bold; margin-bottom:6px;
+  box-shadow: 0 2px 6px #0fa4;
+}
+.mng-hero-content .pmp-badge img {height:32px; margin-right:12px;}
+.mng-hero-content .subtitle {
+  color: #127782; font-size:1.12em; margin-bottom:6px;
+}
+.mng-hero-content blockquote {
+  color: #126e9c; font-style: italic; font-size:1.04em;margin:3px 0 10px 0;
+  padding-left:14px; border-left:3px solid #11bba8; background:#f0fafbde; border-radius:0 9px 9px 0;
+}
+.mng-stats {display:flex; gap:35px; margin-top:10px;}
+.mng-stats .stat {
+  background:#fff;box-shadow:0 1.2px 9px #b7e7ff14;
+  border-radius:10px;padding:8px 22px; font-size:1.1em;
+  color: #11bba8; font-weight:bold; text-align: center;
+}
+
+/* Timeline cards bleues */
+.timeline-vertical {border-left: 4px solid #11bba8; margin: 34px 0 28px 20px; padding-left: 35px;}
+.eventV { position: relative; margin-bottom: 36px;}
+.event-yearV {
+  position: absolute; left: -65px; top: 0;
+  background: #eaf3fa; color:#11bba8; font-weight: bold; font-size: 1.13em;
+  border-radius:8px; min-width:44px; text-align:right;padding-right:10px;
+}
+.event-contentV {
+  background: #f7fafc;
+  border-radius: 13px;
+  box-shadow: 0 2px 12px #b7e7ff13;
+  padding: 15px 20px 10px 20px;
+  font-size: 0.97em;
+  margin-left: 0; position: relative;
+}
+.event-contentV h3 { margin-top:8px; color:#127782;}
+.event-contentV .event-icon {
+  font-size:1.7em;
+  margin-bottom:2px; color:#11bba8;
+}
+.event-contentV ul ul {margin-left:18px;margin-top:4px;}
+/* Tag skills harmonisés bleu-vert */
+.skill-tags {margin: 16px 0 35px 0;}
+.skill-tag {
+  display:inline-block; background: #eaf3fa;
+  color: #13907b;  border-radius:9px;
+  padding: 6px 13px; margin: 0 7px 8px 0;
+  font-size:1em; font-weight:600;letter-spacing:.015em;
+  box-shadow: 0 1px 7px #b7e7ff11; transition:background .13s;
+}
+.skill-tag:hover { background:#11bba8; color:#fff;}
+/* PMP block custom bleu */
+.pmp-section {
+  background: #11bba8; color:#fff; border-radius: 15px;
+  padding:20px 20px 17px 22px; box-shadow:0 2px 16px #b7e7ff22; margin-bottom:28px; margin-top:23px; 
+  display:flex; align-items:center; gap:22px;
+}
+.pmp-section img {height:56px;}
+.pmp-section h2 {color:#eaf3fa;font-size:1.15em;}
+.pmp-list li { margin-bottom: 7px;}
+/* Footer logos */
+.logos-orga img {filter: grayscale(0.1) contrast(1.08);}
+@media(max-width:900px){
+  .mng-hero{gap:12px;}
+  .mng-hero-photo {width:55px;height:55px;}
+}
+@media(max-width:600px){
+  .mng-hero{flex-direction:column;align-items:center;}
+  .mng-hero-content{text-align:center;}
+  .timeline-vertical{padding-left:15px;}
+}
+  </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+  <canvas id="bg-management"></canvas>
+  <main class="page-details">
+    <a href="index.html">&larr; Retour</a>
+    <!-- HERO BANDEAU BUSINESS PMP -->
+    <div class="mng-hero">
+      <img src="images/manage.jpg" alt="Portrait Habib Mahjoubi" class="mng-hero-photo">
+      <div class="mng-hero-content">
+        <h1>Project manager</h1>
+        <div class="subtitle">Management & Administration des entreprise — Grenoble IAE</div>
+        <blockquote>
+          “Piloter la réussite des projets, c’est transformer l’ambition collective en résultats concrets.”
+        </blockquote>
+        <div class="mng-stats">
+          <div class="stat"><i class="fas fa-users"></i><br>Des équipes pilotées</div>
+          <div class="stat"><i class="fas fa-briefcase"></i><br>Projets d'envergure</div>
+          <div class="stat"><i class="fas fa-award"></i><br>PMP® Certified</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc PMP -->
+    <div class="pmp-section">
+      <img src="images/pmp.png" alt="Logo PMP">
+      <div>
+        <h2>PMP® — Project Management Professional</h2>
+        <ul class="pmp-list">
+          <li>Maîtrise du cadre PMI (processus, livrables, KPI, parties prenantes…)</li>
+          <li>Gestion de projets classiques (Predictive/Waterfall) et agiles (Scrum, Kanban)</li>
+          <li>Analyse de risques, communication multi-acteurs, gestion contractuelle</li>
+          <li>Optimisation des ressources et suivi budgétaire</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Timeline Experiences modernisée -->
+    <h2>Expériences</h2>
+    <div class="timeline-vertical">
+      <div class="eventV">
+        <div class="event-yearV">Janvier-Aout/2024</div>
+        <div class="event-contentV">
+          <h3>Formation gestion de projet et préparation à la certification PMP</h3>
+          <strong>BEN HAMMOUDA Consulting · Sfax/Tunisie (à distance)</strong>
+          <div class="kanban-kpi-wrap" id="kanbanAgileKPI">
+            <span>Tâches totales : <b id="agKpiTotal">0</b></span>
+            <span style="margin-left:18px;">Terminé : <b id="agKpiDone">0</b></span>
+            <span style="margin-left:18px;">Progression</span>
+            <div class="kanban-progress-bar" style="width:120px;display:inline-block;">
+              <div class="kanban-progress" id="agProgressBar"></div>
+            </div>
+            <span class="pmp-kpi-right" id="agProgressText"></span>
+          </div>
+          <div class="kanban-board" id="kanban-agile">
+            <div class="kanban-col" id="ag-backlog">
+              <h4>Backlog (<span class="col-progress" id="agColBacklog"></span>)</h4>
+              <div class="kanban-list">
+                <div class="kanban-card verify">
+                  Fondation et alignement stratégique des projets avec les objectifs de l'organisation
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card verify">
+                  Définition des bénéfices, de la valeur et de la gouvernance projet
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card verify">
+                  Mise en place de la culture d'entreprise et pilotage des changements
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card verify">
+                  Intégration de la conformité réglementaire et des standards de gestion
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card verify">
+                  Capitalisation des connaissances et transfert des bonnes pratiques à l’organisation
+                  <span class="kanban-status-dot"></span>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-col" id="ag-todo">
+              <h4>À faire (<span class="col-progress" id="agColTodo"></span>)</h4>
+              <div class="kanban-list">
+                <div class="kanban-card todo">
+                  Identification et engagement des parties prenantes
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card todo">
+                  Constitution et formation de l'équipe projet
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card todo">
+                  Création d’une vision commune et partage de l’approche méthodologique
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card todo">
+                  Structuration du périmètre, du produit et de la roadmap
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card todo">
+                  Mise en œuvre de processus d’amélioration continue et suivi des indicateurs de performance
+                  <span class="kanban-status-dot"></span>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-col" id="ag-doing">
+              <h4>En cours (<span class="col-progress" id="agColDoing"></span>)</h4>
+              <div class="kanban-list">
+                <div class="kanban-card doing">
+                  Élaboration de l’échéancier détaillé et allocation des ressources
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card doing">
+                  Construction du budget et gestion des risques projet
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card doing">
+                  Définition des critères et exigences qualité
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card doing">
+                  Intégration et synchronisation de l’ensemble des plans projet
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card doing">
+                  Communication transparente et mobilisation des parties prenantes
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card doing">
+                  Analyse des résultats et mesure du retour sur investissement
+                  <span class="kanban-status-dot"></span>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-col" id="ag-done">
+              <h4>Terminé (<span class="col-progress" id="agColDone"></span>)</h4>
+              <div class="kanban-list">
+                <div class="kanban-card done">
+                  Développement des compétences en leadership et en accompagnement d’équipe
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card done">
+                  Création d'un environnement collaboratif et responsabilisant
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card done">
+                  Mise en place de rituels d’évaluation et d’amélioration continue
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card done">
+                  Évaluation de l’avancement, gestion des points bloquants et adaptation rapide aux imprévus
+                  <span class="kanban-status-dot"></span>
+                </div>
+                <div class="kanban-card done">
+                  Clôture structurée du projet ou de ses phases (livrables, valeur, bénéfices)
+                  <span class="kanban-status-dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="kanban-success" id="agSuccess" style="display:none;">
+          <i class="fas fa-trophy"></i> Tous les items sont terminés — flux Agile maîtrisé !
+        </div>
+        <div class="eventV">
+          <div class="event-yearV">Mars-Septembre/2019</div>
+          <div class="event-contentV">
+            <h3>Acheteur projets</h3>
+            <strong>DEUX-PONTS Manufacture d'Histoires · Grenoble</strong>
+            <ul>
+              <li>Assistant Responsable d’Achats :</li>
+              <ul>
+                <li>Sourcing façonnier et divers fournisseurs (support, ST, Accessoires, machines, ...)</li>
+                <li>Travail sur la préparation des portefeuilles fournisseurs (volume , CA, conditions de règlements, ...)</li>
+                <li>Consultation , mise en concurrence</li>
+                <li>Approvisionnement consommables Atelier.</li>
+                <li>Création d'une bibliothèque physique Fournisseurs Sous-traitant</li>
+              </ul>
+            </ul>
+          </div>
+      </div>
+      <div class="eventV">
+        <div class="event-yearV">Novembre/2018 - Mars/2019</div>
+        <div class="event-contentV">
+          <h3>Projet tutoré marketing</h3>
+          <strong>CIBC Isère · Grenoble (à distance)</strong>
+          <ul>
+            <li>Marketing opérationnel :</li>
+            <ul>
+              <li>Analyse de l’entreprise (forces/faiblesses), étude de marché</li>
+              <li>Comprendre le marché et les principaux concurrents présents.</li> 
+              <li>Analyse des besoins (marché)</li>
+              <li>Formaliser des préconisations d’actions</li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS TAGS harmonisés -->
+    <div class="skill-tags">
+      <span class="skill-tag">Gestion de projet</span>
+      <span class="skill-tag">Achats</span>
+      <span class="skill-tag">Planification</span>
+      <span class="skill-tag">Analyse des risques</span>
+      <span class="skill-tag">Coordination équipes</span>
+      <span class="skill-tag">Reporting KPI</span>
+      <span class="skill-tag">CRM</span>
+      <span class="skill-tag">Marketing stratégique</span>
+      <span class="skill-tag">Communication</span>
+      <span class="skill-tag">PMP®</span>
+      <span class="skill-tag">Finance</span>
+    </div>
+
+    <!-- Pied de page avec logos -->
+    <footer class="logos-footer">
+      <div class="logos-orga">
+        <img src="images/cibc.png" alt="Logo CIBC Isère">
+        <img src="images/IAE.png" alt="Logo Grenoble IAE">
+        <img src="images/deuxponts.png" alt="Logo Deux Ponts Manufacture d’Histoires">
+      </div>
+    </footer>
+  </main>
+  <!-- Animation arrière plan conservée -->
+  <script>
+const SYMBOLS = ["€","$"];
+const COLORS = ["#11bba4","#0fc1c7","#127782","#0cceea","#11bba8"];
+function resizeBgManagement() {
+  const c = document.getElementById('bg-management');
+  if (!c) return;
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+}
+resizeBgManagement();
+window.addEventListener('resize', resizeBgManagement);
+const NB_OBJ = 13;
+const symbols = [];
+for(let i=0;i<NB_OBJ;i++) {
+  const si = Math.floor(Math.random()*SYMBOLS.length);
+  symbols.push({
+    x: Math.random()*window.innerWidth,
+    y: Math.random()*window.innerHeight,
+    size: 35 + Math.random()*42,
+    symbol: SYMBOLS[si],
+    color: COLORS[si % COLORS.length],
+    dx: (Math.random()-0.5)*0.16,
+    dy: (Math.random()-0.5)*0.14,
+    rot: (Math.random()-0.5)*0.01,
+    angle: Math.random()*2*Math.PI,
+    opacity: 0.12 + Math.random()*0.19
+  });
+}
+function animateBgManagement(time=0){
+  const c = document.getElementById('bg-management');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  ctx.clearRect(0,0,w,h);
+  for(let obj of symbols){
+    obj.x += obj.dx;
+    obj.y += obj.dy;
+    obj.angle += obj.rot;
+    // rebond sur les bords
+    if(obj.x < -50 || obj.x > w+50) obj.dx *= -1;
+    if(obj.y < -50 || obj.y > h+50) obj.dy *= -1;
+    ctx.save();
+    ctx.translate(obj.x, obj.y);
+    ctx.rotate(obj.angle);
+    ctx.globalAlpha = obj.opacity;
+    ctx.font = `${obj.size}px Arial`;
+    ctx.fillStyle = obj.color;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.shadowColor = "#fff";
+    ctx.shadowBlur = 7;
+    ctx.fillText(obj.symbol, 0, 0);
+    ctx.restore();
+  }
+  requestAnimationFrame(animateBgManagement);
+}
+animateBgManagement();
+//pour le bouton retour en bas de la page
+window.addEventListener('scroll', function() {
+  const topBtn = document.getElementById('top-btn');
+  if(window.scrollY > 250) topBtn.style.display = 'block';
+  else topBtn.style.display = 'none';
+});
+//JS pour la section kanban de la page management
+// Kanban Agile drag & drop + statut & dates
+document.addEventListener("DOMContentLoaded", function() {
+  const TODAY = new Date().toISOString().slice(0,10);
+  ['ag-backlog','ag-todo','ag-doing','ag-done'].forEach(function(id){
+    Sortable.create(document.getElementById(id).querySelector('.kanban-list'), {
+      group: 'kanbanAgile',
+      animation: 170,
+      ghostClass: 'kanban-ghost',
+      onSort:updateAgileKPI,
+      onAdd:updateAgileKPI,
+      onRemove:updateAgileKPI
+    });
+  });
+
+  function updateAgileKPI() {
+    const board = document.getElementById('kanban-agile');
+    if(!board) return;
+    const tot = board.querySelectorAll('.kanban-card').length;
+    const backlog = board.querySelectorAll('#ag-backlog .kanban-card').length;
+    const todo = board.querySelectorAll('#ag-todo .kanban-card').length;
+    const doing = board.querySelectorAll('#ag-doing .kanban-card').length;
+    const done = board.querySelectorAll('#ag-done .kanban-card').length;
+    document.getElementById('agKpiTotal').textContent = tot;
+    document.getElementById('agKpiDone').textContent = done;
+    document.getElementById('agColBacklog').textContent = backlog;
+    document.getElementById('agColTodo').textContent = todo;
+    document.getElementById('agColDoing').textContent = doing;
+    document.getElementById('agColDone').textContent = done;
+    let pct = tot ? Math.round(done / tot * 100) : 0;
+    document.getElementById('agProgressBar').style.width = pct+"%";
+    document.getElementById('agProgressText').textContent = pct+"% terminé";
+    document.getElementById('agSuccess').style.display = (pct===100) ? 'block' : 'none';
+  
+    board.querySelectorAll('.kanban-card').forEach(function(card){
+      let date = card.getAttribute('data-date');
+      let col = card.closest('.kanban-col').id;
+      // Pastille
+      let dot = card.querySelector('.kanban-status-dot');
+      if(!dot) {
+        dot = document.createElement('span');
+        dot.className = 'kanban-status-dot';
+        card.appendChild(dot);
+      }
+      card.classList.remove('todo','doing','done','late','verify');
+      if(col==='ag-doing')      { card.classList.add('doing'); }
+      else if(col==='ag-todo')  { card.classList.add('todo'); }
+      else if(col==='ag-done')  { card.classList.add('done'); }
+      else if(col==='ag-backlog'){ card.classList.add('verify'); }
+      // Date (toujours présent)
+      let dateEl = card.querySelector('.kanban-date');
+      if(!dateEl) {
+        dateEl = document.createElement('span');
+        dateEl.className = "kanban-date";
+        dateEl.style.marginLeft="7px";
+        card.insertBefore(dateEl, dot);
+      }
+      if(date) {
+        let late = (date < TODAY && col!=='ag-done');
+        dateEl.textContent = (late ? "En retard " : "") + "🗓 " + date;
+        card.classList.toggle('late', late);
+      } else dateEl.textContent = "";
+    });
+  }
+  updateAgileKPI();
+let txtNode = card.childNodes[0];
+if (!card.querySelector('.kanban-date')) {
+  let dateEl = document.createElement('span');
+  dateEl.className = "kanban-date";
+  card.appendChild(dateEl);
+}
+let dateEl = card.querySelector('.kanban-date');
+if (!card.querySelector('.kanban-status-dot')) {
+  let dot = document.createElement('span');
+  dot.className = 'kanban-status-dot';
+  card.appendChild(dot);
+}
+});
+  </script>
+
+<a href="#" class="scrolltop-btn" id="top-btn"
+  onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
+  ↑ Retour en haut
+</a>
+</body>
+</html>

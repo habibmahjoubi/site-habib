@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Biologie & Recherche</title>
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    /* HERO */
+    .bio-hero {
+      position: relative;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background: linear-gradient(100deg,#eaf3fa 39%,#d4e2efa0 100%);
+      margin-bottom: 32px;
+      overflow: hidden;
+      border-radius: 0 0 25px 25px;
+      box-shadow: 0 2px 18px #c9e7f822;
+    }
+    .bio-hero-bg {
+      position: absolute; right:0; bottom:0; z-index:1;
+      min-width:360px; min-height:160px; opacity:.22;
+      height: 100%; width: auto;
+    }
+    .bio-hero-content {
+      z-index:2; position: relative;
+      display: flex; align-items: center;
+      padding: 14px 17px 8px 36px;
+    }
+    .bio-portrait {
+      width: 100px; height: 100px; border-radius: 50%; margin-right: 28px; border: 3px solid #11bba8;
+      box-shadow: 0 2px 13px #b1eaea29; object-fit: cover;
+      background: #ececec;
+    }
+    .bio-hero h1 {margin:0;color:#11bba8; font-size:2em;}
+    .bio-hero h2 {margin:3px 0 0 0;color:#157478; font-size:1.17em;background: #ececec;}
+    .bio-hero blockquote {
+      margin-top: 13px; color: #18807d; font-style:italic;
+      font-size:1em; padding-left:15px; border-left:3px solid #11bba8;
+      background: #ececec; border-radius: 0 7px 7px 0;
+    }
+    /* Timeline Horizontale */
+    .timeline-horizontal {
+      display: flex; gap: 0px; margin-top: 42px; margin-bottom:34px;
+      justify-content:center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .eventH {
+      position: relative; flex: 1; min-width: 120px; margin:0 11px;
+      display: flex; flex-direction: column; align-items:center;
+      z-index: 1;
+    }
+    .event-yearH {
+      background: #11bba833;
+      color:#11bba8; font-weight:bold;
+      text-align:center; border-radius:8px;
+      font-size: 1.07em; min-width:60px; margin-bottom: 8px; padding:3px 0;
+    }
+    .event-contentH {
+      background:#fff;
+      border-radius:10px;
+      box-shadow:0 1px 8px #cffaf824;
+      padding:14px 15px 11px 15px;
+      min-width:400px; max-width: 240px;
+      font-size:0.98em;
+      border-left: 4px solid #11bba842;
+    }
+    /* Ligne timeline horizontale */
+    .timeline-horizontal:before {
+      content:"";
+      position:absolute; left:0; right:0; top:23px; height:4px;
+      background:linear-gradient(90deg,#11bba84c,#b3e8ff26 70%);
+      z-index:0;
+    }
+    /* COMPETENCE CARDS */
+    .skills-cards {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      margin-bottom: 32px; margin-top: 9px;
+      justify-content:center;
+    }
+    .skill-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px #69d0cc17;
+      font-size: 0.97em;
+      padding: 14px 15px 8px 15px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      min-width: 100px;
+      max-width: 200px;
+      flex: 1 0 135px;
+      transition:box-shadow .17s;
+    }
+    .skill-card img {
+      width: 36px; height: 36px; margin-bottom: 3px; object-fit:contain;
+    }
+    .skill-card span {
+      font-weight: bold; color: #13907b; font-size:1.08em;
+      margin-top:3px;
+    }
+    .skill-card small {
+      color: #127782; opacity:.85; font-size: 0.87em; text-align:center;
+    }
+    /* Listes Modernes */
+    .publi-list, .conference-list, .cours-list {
+      margin: 18px 0 32px 0; padding:0; list-style:none;
+    }
+    .publi-list li, .conference-list li, .cours-list {
+      background:#f0faf9; border-radius:8px; margin-bottom:13px; padding:14px 15px 8px 15px;
+      box-shadow:0 1px 6px #d4f1ed22;
+      font-size:1em;
+    }
+    .publi-list strong {color:#0a948a;}
+    .conference-list em { color:#157478;}
+    .cours-list em { color:#157478;}
+    @media(max-width:950px){
+      .bio-hero { height:210px; padding:0 0 0 0;}
+      .bio-hero-content {padding:6px 8px 0 13px;}
+      .bio-hero-bg {min-width:220px;}
+      .bio-portrait{width:68px;height:68px;}
+      .event-contentH {font-size: 0.93em;}
+      .skill-card {min-width:89px; font-size:0.93em;}
+    }
+    @media(max-width:700px){
+      .timeline-horizontal{flex-direction:column; gap:17px;}
+      .timeline-horizontal:before {display:none;}
+      .eventH{min-width:155px; max-width: 94vw;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-dna"></canvas>
+  
+<!-- HERO BANDEAU -->
+<div class="bio-hero">
+  <img src="images/labo.jpg" alt="fond labo/plante" class="bio-hero-bg">
+  <div class="bio-hero-content">
+    <img src="images/blé.jpg" class="bio-portrait" alt="Portrait Habib Mahjoubi" width="100" height="100">
+    <div>
+      <h2>Doctorat Biologie des organismes : développement et physiologie </h2>
+      <blockquote>
+        “Chercher, innover, transmettre : la science est un formidable terrain de création humaine.”
+      </blockquote>
+    </div>
+  </div>
+  <!-- Placez le Swiper en dessous, si nécessaire -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="images/GFP controle .jpg" alt="Image du laboratoire" width="200" height="300">
+        <p>Transformation transitoire des feuilles de N. benthamiana avec 35S::GFP</p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/COURBE.jpg" alt="Image de projet" width="200" height="300">
+        <p>Scatter plot présentant les connections entre le type de stress et la réponse des gènes co-régulés</p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/COL0.jpg" alt="Événement marquant" width="200" height="300">
+        <p>Apex d’une racine primaire d’Arabidopsis thaliana observée en
+            microscopie confocale à balayage laser (coloration PI)</p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/tub.jpg" alt="Image de projet" width="200" height="300">
+        <p>Localisation transitoire de 35S::GFP dans les feuilles de N.Benthamiana. </p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/gel.png" alt="Image de projet" width="200" height="300">
+        <p>RT-PCR semi-quantitatives sur de jeunes plantules</p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/nacl.jpg" alt="Image de projet" width="200" height="300">
+        <p>Effet de stress abiotiques sur la croissance racinaire chez Arabidopsis thaliana</p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/alig.png" alt="Image du laboratoire" width="200" height="300">
+        <p>Alignement multiple des séquences protéiques issues de plantes monocotylédones. </p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/dapi+tub.jpg" alt="Image de projet" width="200" height="300">
+        <p> Immunomarquage anti-tubuline (rouge), les noyaux sont colorés en bleu (DAPI).</p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/analyse.jpg" alt="Image de projet" width="200" height="300">
+        <p>Expression Relative des gènes coexprimées en présence du stress abiotiques présentées en cluster heatmap avec R</p>
+        <p></p>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/ANA.jpg" alt="Événement marquant" width="200" height="300">
+        <p> Immunomarquage anti-tubuline (rouge), les noyaux sont colorés en bleu (DAPI)</p>
+        <p></p>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+  <main class="page-details">
+    <a href="index.html">&larr; Retour</a>
+
+    <!-- TIMELINE / FRIZE HORIZONTALE -->
+    <div class="timeline-horizontal">
+      <div class="eventH">
+        <div class="event-yearH">2015-2018</div>
+        <div class="event-contentH">
+          <strong>Doctorat biologie des organismes</strong>
+          <br><span style="color:#127782;">Sujet: Nouvelle Stratégie d’Amélioration de la productivité végétale en conditions de stress environnemental via un meilleur contrôle du cycle cellulaire.</span>
+          <p>Superviseur : Pr. Moez HANIN & Dr. Marie-Edith CHABOUTE</p>
+          <!-- Icône PDF -->
+          <a href="https://theses.fr/2018STRAJ059" 
+            target="_blank" 
+            class="pdf-link" 
+            title="Consulter le document en ligne">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+        </div>
+      </div>
+      <div class="eventH">
+        <div class="event-yearH">2013</div>
+        <div class="event-contentH">
+          <strong>Master sciences de la vie : spécialité biotechnologie végétale</strong>
+          <p>Sujet : Caractérisation fonctionnelle de TRH dans la réponse au stress abiotique chez le blé.</p>
+          <p>Superviseur : Dr. Chantal EBEL</p>
+        </div>
+      </div>
+      <!-- Ajoute d'autres events ... -->
+    </div>
+
+    <!-- COMPETENCES -->
+    <h3 style="margin-top:42px;">Compétences clés</h3>
+    <div class="skills-cards">
+      <div class="skill-card">
+        <img src="images/moleculaire.jpg" alt="Biologie moléculaire">
+        <span>Biologie moléculaire</span>
+        <small>Extraction et purification d’ADN/ARN, PCR, qPCR, RT-PCR, Clonage et mutagenèse, Électrophorèse, Southern/Northern/Western blot, Manipulation génétique de bactéries et cellules végétales</small>
+      </div>
+      <div class="skill-card">
+        <img src="images/physiologie.jpg" alt="Physiologie">
+        <span>Physiologie</span>
+        <small>Expériences en conditions contrôlées (chambres de cultures, serres), tests de germination et suivi de la croissance, tests stress abiotiques (salinité, sécheresse), Dosage des composés secondaires (SOD, proline, polyphénols)   </small>
+      </div>
+      <div class="skill-card">
+        <img src="images/data.gif" alt="Data">
+        <span>Analyse de données</span>
+        <small>Statistiques biologiques,utilisation de logiciels (R, python, excel), analyse et interprétation de données de RNAseq, </small>
+      </div>
+      <div class="skill-card">
+        <img src="images/confocale.jpg" alt="Biologie cellulaire">
+        <span>Biologie cellulaire</span>
+        <small>microscopie confocale, Immunomarquage et immunofluorescence, FISH, DAPI, culture cellulaire végétale et bactérienne</small>
+      </div>
+      <div class="skill-card">
+        <img src="images/Omic.jpg" alt="Data">
+        <span>Omiques</span>
+        <small>Extraction, purification et quantification des protéines, Préparation d’échantillons pour séquençage haut débit (NGS : RNAseq, DNAseq,),analyses bioinformatiques,visualisation de données, génomique,  </small>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <h3>Publications</h3>
+    <ul class="publi-list">
+      <li>
+        <strong>Transcriptome meta-analysis of abiotic stresses-responsive genes and identification of candidate transcription factors for broad stress tolerance in wheat</strong>
+        <br><em>Protoplasma</em> 2022 Sep 260(3):1-15(Impact factor 2025 => 2,5)<br>
+        <a target="_blank" href="https://link.springer.com/article/10.1007/s00709-022-01807-5">Voir le DOI</a>
+      </li>
+      <li>
+        <strong>Genome-wide identification of wheat and Brachypodium type one protein phosphatases and functional characterization of durum wheat TdPP1a.</strong>
+        <br><em>PLoS One</em> 2018 Jan 16;13(1):e0191272.(Impact factor 2025 => 2,6)<br>
+        <a target="_blank" href="https://doi.org/10.1371/journal.pone.0191272">Voir le DOI</a>
+      </li>
+      <li>
+        <strong>Molecular and functional characterization of the durum wheat TdRL1, a member of the conserved Poaceae RSS1-like family that exhibits features of intrinsically disordered proteins and confers stress tolerance in yeast</strong>
+        <br><em>Funct Integr Genomics</em> 2015 Nov;15(6):717-28.(Impact factor 2025 => 3)<br>
+        <a target="_blank" href="https://doi.org/10.1007/s10142-015-0448-x">Voir le DOI</a>
+      </li>
+      <li>
+        <strong>The wheat TdRL1 is the functional homolog of the rice RSS1 and promotes plant salt stress tolerance</strong>
+        <br><em>Plant Cell Rep.</em> 2018 Dec;37(12):1625-1637.(Impact factor 2025 => 4)<br>
+        <a target="_blank" href="https://doi.org/10.1007/s00299-018-2333-2">Voir le DOI</a>
+      </li>
+    </ul>
+
+    <!-- CONFÉRENCES -->
+    <h3>Conférences / Présentations</h3>
+    <ul class="conference-list">
+      <li>
+        <strong>Poster : The wheat gene TdRL1 is the functional homolog of Arabidopsis PATRONUS that ensure proper chromosome segregation during salt stress through kinetochore microtubule association</strong><br>
+        <em>Bilateral Closure Symposium of GDRI Integrative Plant Biology Network, Lyon, 23, 24 et 25 Octobre 2017</em>
+      </li>
+      <li>
+        <strong>Communication orale : Modulation de la croissance par le stress : Relation de TdRL1 avec les réseaux MTs en imagerie 3D. </strong><br>
+        <em>Symposium Imagerie 3D, Strasbourg, 04 Avril 2017</em>
+      </li>
+      <li>
+        <strong>Poster : Novel insights into the nuclear environment to orchestrate centromeric architecture in Arabidopsis.</strong><br>
+        <em>Epigenetic & chromatin regulation of plants traits, Strasbourg, 15 et 16 Janvier 2016</em>
+      </li>
+    </ul>
+    <!-- CourS -->
+    <h3>Cours / Formations</h3>
+    <ul class="cours-list">
+      <li>
+        <strong>Cours pratique Bioinformatique “NGS DATA ANALYSIS”</strong><br>
+        <em>29, 30 Septembre et 03 Octobre 2016, CNRS-Strasbourg, FR</em>
+      </li>
+      <li>
+        <strong>NGS data analysis and protein modeling bioinformatics course</strong><br>
+        <em>29 juillet - 07 Aout 2015, Institut Pasteur Tunis, TN </em>
+      </li>
+      <li>
+        <strong>NGS data analysis on the unix command line, small-RNAseq and RNAseq</strong><br>
+        <em>13, 14, et 15 Novembre 2017, IBMP-Strasbourg, FR </em>
+      </li>
+      <li>
+        <strong>Techniques de purification de protéines par chromatographie liquide </strong><br>
+        <em>26, 27 Avril 2017, ESBS-Strasbourg, FR </em>
+      </li>
+      <li>
+        <strong>Logiciel R - Premiers pas et tests statistiques </strong><br>
+        <em>25, 26 et 28 Janvier 2016, ESBS-Strasbourg, FR </em>
+      </li>
+      <li>
+        <strong>PCR Quantitative </strong><br>
+        <em>29, 30 Mars 2017, CNRS-Strasbourg, FR </em>
+      </li>
+    </ul>
+    
+    <!-- Pied de page avec logos -->
+    <footer class="logos-footer">
+      <div class="logos-orga">
+        <img src="images/strasbourg.png" alt="Logo Strasbourg">
+        <img src="images/ibmp.png" alt="Logo IBMP">
+        <img src="images/stras.png" alt="Logo Strasbourg">
+        <img src="images/amiens.png" alt="Logo Amiens">
+      </div>
+    </footer>
+  </main>
+
+  <!-- ADN animé déjà fourni -->
+  <script>
+function resizeBgDNA() {
+  const c = document.getElementById('bg-dna');
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+}
+resizeBgDNA();
+window.addEventListener('resize', resizeBgDNA);
+const nFilaments = 4;
+const filaments = [];
+for(let i=0;i<nFilaments;i++) {
+  filaments.push({
+    cxPct: 0.12 + 0.76*Math.random(),
+    cyPct: 0.13 + 0.75*Math.random(),
+    amplitude: 28 + Math.random()*52,
+    lengthPct: 0.37 + Math.random()*0.27,
+    phase0: Math.random()*Math.PI*2,
+    speed: 0.5 + Math.random()*1.1,
+    color1: `rgba(${120+Math.random()*100|0},${180+Math.random()*60|0},${200+Math.random()*50|0},0.07)`,
+    color2: `rgba(${34+Math.random()*60|0},${220+Math.random()*10|0},${180+Math.random()*30|0},0.08)`,
+    link:  `rgba(${16+Math.random()*30|0},178,186,0.15)`
+  });
+}
+function animateBgDNA(time=0){
+  const c = document.getElementById('bg-dna');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  ctx.clearRect(0,0,w,h);
+  filaments.forEach((f,idx) => {
+    let cx = w*f.cxPct, cy = h*f.cyPct;
+    let amplitude = f.amplitude;
+    let length = w*f.lengthPct;
+    let nSegments = 46;
+    let phaseSpeed = f.speed * 1.11;
+    ctx.save();
+    for(let i=0; i<nSegments; i++){
+      let tseg = i / (nSegments-1);
+      let x = cx + (tseg-0.5)*length;
+      let y = cy + Math.sin((tseg*3 + phaseSpeed*time/4200 + f.phase0))*amplitude;
+      let phase = tseg*7 + phaseSpeed*time/2100 + f.phase0;
+      let r = 10 + 4*Math.sin(phase + idx);
+      ctx.beginPath();
+      ctx.arc(x, y + Math.sin(phase)*14, r, 0, 2*Math.PI);
+      ctx.fillStyle = f.color2;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x, y - Math.sin(phase)*14, r, 0, 2*Math.PI);
+      ctx.fillStyle = f.color1;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x, y - Math.sin(phase)*14);
+      ctx.lineTo(x, y + Math.sin(phase)*14);
+      ctx.strokeStyle = f.link;
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+    }
+    ctx.restore();
+  });
+  requestAnimationFrame(animateBgDNA);
+}
+animateBgDNA();
+//pour le bouton retour en bas de la page
+window.addEventListener('scroll', function() {
+  const topBtn = document.getElementById('top-btn');
+  if(window.scrollY > 250) topBtn.style.display = 'block';
+  else topBtn.style.display = 'none';
+});
+//pour les image entete de la page bio
+src="https://unpkg.com/swiper/swiper-bundle.min.js"
+
+var swiper = new Swiper('.swiper-container', {
+  slidesPerView: 1,
+  spaceBetween: 10,
+  loop: true,
+  autoplay: {
+    delay: 10000,  // 10 secondes
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+});
+
+
+  </script>
+<a href="#" class="scrolltop-btn" id="top-btn"
+  onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
+  ↑ Retour en haut
+</a>
+</body>
+</html>
