@@ -12,8 +12,11 @@
   <style>
     /* HERO */
     .bio-hero {
-      position: relative;
-      height: 380px;
+      position: sticky;
+      top: 0;
+      z-index: 10; /* doit être supérieur aux autres contenus de la page */
+      /* le reste de tes styles existants : */
+      height: 280px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -25,7 +28,7 @@
     }
     .bio-hero-bg {
       position: absolute; right:0; bottom:0; z-index:1;
-      min-width:360px; min-height:160px; opacity:.22;
+      min-width:220px; min-height:160px; opacity:.22;
       height: 100%; width: auto;
     }
     .bio-hero-content {
@@ -122,8 +125,8 @@
     .publi-list strong {color:#0a948a;}
     .conference-list em { color:#157478;}
     .cours-list em { color:#157478;}
-    @media(max-width:950px){
-      .bio-hero { height:210px; padding:0 0 0 0;}
+    @media(max-width:700px){
+      .bio-hero { height:220px; padding:0 0 0 0;}
       .bio-hero-content {padding:6px 8px 0 13px;}
       .bio-hero-bg {min-width:220px;}
       .bio-portrait{width:68px;height:68px;}
@@ -156,53 +159,53 @@
   <div class="swiper-container">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <img src="images/GFP controle .jpg" alt="Image du laboratoire" width="200" height="300">
+        <img src="images/GFP controle .jpg" alt="Image du laboratoire" width="200" height="250">
         <p>Transformation transitoire des feuilles de N. benthamiana avec 35S::GFP</p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/COURBE.jpg" alt="Image de projet" width="200" height="300">
+        <img src="images/COURBE.jpg" alt="Image de projet" width="200" height="250">
         <p>Scatter plot présentant les connections entre le type de stress et la réponse des gènes co-régulés</p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/COL0.jpg" alt="Événement marquant" width="200" height="300">
+        <img src="images/COL0.jpg" alt="Événement marquant" width="200" height="250">
         <p>Apex d’une racine primaire d’Arabidopsis thaliana observée en
             microscopie confocale à balayage laser (coloration PI)</p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/tub.jpg" alt="Image de projet" width="200" height="300">
+        <img src="images/tub.jpg" alt="Image de projet" width="200" height="250">
         <p>Localisation transitoire de 35S::GFP dans les feuilles de N.Benthamiana. </p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/gel.png" alt="Image de projet" width="200" height="300">
+        <img src="images/gel.png" alt="Image de projet" width="200" height="250">
         <p>RT-PCR semi-quantitatives sur de jeunes plantules</p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/nacl.jpg" alt="Image de projet" width="200" height="300">
+        <img src="images/nacl.jpg" alt="Image de projet" width="200" height="250">
         <p>Effet de stress abiotiques sur la croissance racinaire chez Arabidopsis thaliana</p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/alig.png" alt="Image du laboratoire" width="200" height="300">
+        <img src="images/alig.png" alt="Image du laboratoire" width="200" height="250">
         <p>Alignement multiple des séquences protéiques issues de plantes monocotylédones. </p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/dapi+tub.jpg" alt="Image de projet" width="200" height="300">
+        <img src="images/dapi+tub.jpg" alt="Image de projet" width="200" height="250">
         <p> Immunomarquage anti-tubuline (rouge), les noyaux sont colorés en bleu (DAPI).</p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/analyse.jpg" alt="Image de projet" width="200" height="300">
+        <img src="images/analyse.jpg" alt="Image de projet" width="200" height="250">
         <p>Expression Relative des gènes coexprimées en présence du stress abiotiques présentées en cluster heatmap avec R</p>
         <p></p>
       </div>
       <div class="swiper-slide">
-        <img src="images/ANA.jpg" alt="Événement marquant" width="200" height="300">
+        <img src="images/ANA.jpg" alt="Événement marquant" width="200" height="250">
         <p> Immunomarquage anti-tubuline (rouge), les noyaux sont colorés en bleu (DAPI)</p>
         <p></p>
       </div>
@@ -296,6 +299,21 @@
         <a target="_blank" href="https://doi.org/10.1007/s00299-018-2333-2">Voir le DOI</a>
       </li>
     </ul>
+    <h3>Veille scientifique</h3>
+    <div class="pubmed-monitor">
+      <div class="pubmed-searchbox">
+        <input id="pubmed-keywords" type="text" placeholder="Entrez des mots-clés (ex : Arabidopsis, stress etc.)" />
+        <button onclick="doPubMedSearch()">Rechercher</button>
+      </div>
+      <div class="pubmed-results-scroll" id="pubmed-results"></div>
+      <!-- Pop-up modal -->
+      <div class="pubmed-modal" id="pubmed-modal" style="display:none;">
+        <div class="pubmed-modal-content">
+          <button class="pubmed-close" onclick="closePubMedModal()">&times;</button>
+          <div id="pubmed-modal-details"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- CONFÉRENCES -->
     <h3>Conférences / Présentations</h3>
@@ -341,7 +359,7 @@
         <em>29, 30 Mars 2017, CNRS-Strasbourg, FR </em>
       </li>
     </ul>
-    
+
     <!-- Pied de page avec logos -->
     <footer class="logos-footer">
       <div class="logos-orga">
@@ -438,7 +456,55 @@ var swiper = new Swiper('.swiper-container', {
     clickable: true,
   },
 });
-
+//js pour recherche pubmed
+function doPubMedSearch() {
+  let k = document.getElementById("pubmed-keywords").value.trim();
+  let resbox = document.getElementById("pubmed-results");
+  resbox.innerHTML = '<div style="text-align:center;color:#127782;font-size:1.11em;padding:15px 0 10px">Recherche en cours...</div>';
+  if(!k) { resbox.innerHTML=""; return; }
+  // 1. Search PubMed, get IDs
+  fetch("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=15&term="+encodeURIComponent(k)+"&retmode=json")
+  .then(r=>r.json())
+  .then(d=>{
+    if(!d.esearchresult || !d.esearchresult.idlist || d.esearchresult.idlist.length===0){
+      resbox.innerHTML='<div style="padding:14px;text-align:center;">Aucun résultat.</div>'; return;
+    }
+    let ids = d.esearchresult.idlist.join(",");
+    // 2. Summary PubMed
+    return fetch("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id="+ids+"&retmode=json");
+  })
+  .then(r=>r ? r.json() : null)
+  .then(d=>{
+    if(!d || !d.result) return;
+    let items = Object.values(d.result).filter(x=>x.uid).slice(0,15);
+    let html = "";
+    items.forEach(item=>{
+      html+=`<div class="pubmed-result-item"
+        onclick="showPubMedModal('${item.uid}',this)">
+        <div class="pubmed-title">${item.title}</div>
+        <div class="pubmed-authors">${(item.authors||[]).map(a=>a.name).join(', ')}</div>
+        <div class="pubmed-journal">${item.fulljournalname||''}</div>
+        <span class="pubmed-date">${item.pubdate||''}</span>
+      </div>`;
+    });
+    resbox.innerHTML=html;
+  });
+}
+// Pop-up
+function showPubMedModal(id,el){
+  fetch("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id="+id+"&retmode=xml")
+    .then(r=>r.text()).then(xml=>{
+      let title = (el.querySelector('.pubmed-title')||{}).innerText||'';
+      let abs = (xml.match(/<AbstractText[^>]*>([\s\S]*?)<\/AbstractText>/)||[])[1]||'Pas de résumé disponible.';
+      let url = "https://pubmed.ncbi.nlm.nih.gov/"+id;
+      document.getElementById("pubmed-modal-details").innerHTML =
+        `<div style="font-weight:bold;font-size:1.09em;margin-bottom:8px;">${title}</div>
+        <div style="color:#195b80;font-size:1em;margin-bottom:9px;">${abs}</div>
+        <a target="_blank" href="${url}">Voir l'article sur PubMed</a>`;
+      document.getElementById("pubmed-modal").style.display="";
+    });
+}
+function closePubMedModal(){ document.getElementById("pubmed-modal").style.display="none"; }
 
   </script>
 <a href="#" class="scrolltop-btn" id="top-btn"

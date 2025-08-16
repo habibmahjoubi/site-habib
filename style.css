@@ -760,94 +760,183 @@ aside footer {
 }
 
 /*css pour triple compét*/
-.triskel-title {
-  text-align:center;
-  color:#127782;
-  font-size:1.23em;
-  font-weight:600;
-  margin:35px 0 15px 0;
-}
-
 .triskel-flex {
   display: flex;
-  gap: 29px;
+  gap: 22px;
   justify-content: center;
   align-items: center;
-  margin: 16px 0 11px 0;
+  margin: 14px 0 11px 0;
+  flex-wrap: wrap;
 }
 
 .triskel-bulle {
-  background: var(--col,#11bba8);
+  background: var(--col, #11bba8);
   border-radius: 50%;
-  width: 78px;
-  height: 78px;
+  width: 66px;     /* réduit la taille initiale */
+  height: 66px;
   box-shadow: 0 2px 16px #b7e7ff28;
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 1.1em;
+  font-size: 0.90em; /* taille initiale réduite */
   cursor: pointer;
-  position: relative;
-  transition: .37s cubic-bezier(.56,.13,.32,1.31);
+  transition:
+    background .37s cubic-bezier(.56,.13,.32,1.31),
+    color .21s,
+    box-shadow .22s,
+    width .28s, height .28s,
+    font-size .18s;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 90px;
+  max-height: 90px;
+  text-shadow: 0 1px 6px #1114;
   outline: none;
-  text-shadow: 0 1px 6px #247a9524;
-  min-width: 46px;
-  min-height: 46px;
-  max-width: 120px;
-  max-height: 120px;
 }
-.triskel-bulle i {font-size:1.73em;margin-bottom:2px;}
-.triskel-keyword {font-size:1em;font-weight:50;color: #1b1c1c;}
-.triskel-mini { font-size:.96em;letter-spacing:.01em;opacity:.8;color: #1b1c1c;}
+.triskel-bulle i {
+  font-size: 1.33em; /* icône réduit */
+  margin-bottom: 2px;
+  transition: font-size .16s;
+}
+.triskel-keyword {
+  font-size: 0.87em;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+  transition: font-size .16s;
+}
 .triskel-bulle:hover,
 .triskel-bulle:focus {
-  background: linear-gradient(110deg,var(--col,#11bba8) 65%,#fff 100%);
+  background: linear-gradient(110deg, var(--col, #11bba8) 65%, #fff 100%);
   color: #127782;
-  transform: scale(1.125);
+  transform: scale(1.18);
   z-index: 2;
-  box-shadow: 0 6px 32px #11bba822;
+  box-shadow: 0 8px 40px #11bba822;
 }
-.triskel-bulle:hover .triskel-keyword .triskel-mini, 
-.triskel-bulle:focus .triskel-keyword .triskel-mini {
-  color: #0b7b6e;
-  letter-spacing: .03em;
-  text-shadow: 0 1px 8px #fff8;
+
+.triskel-bulle:hover i,
+.triskel-bulle:focus i {
+  font-size: 1.65em; /* icône grossit */
+}
+.triskel-bulle:hover .triskel-keyword,
+.triskel-bulle:focus .triskel-keyword {
+  font-size: 1.10em; /* texte grossit */
+  color: #127782;
+}
+.triskel-bulle:hover,
+.triskel-bulle:focus {
+  font-size: 0.94em;
+  color: #247a95;
+}
+/* Ligne pointillée sous-mentions */
+.triskel-sub {
+  text-align: center;
+  color: #247a95;
+  font-size: 0.97em;
+  font-weight: 400;
+  margin-bottom: 17px;
+  margin-top: 6px;
 }
 .triskel-dot {
   display: inline-block;
-  width: 5px;
-  height: 5px;
+  width: 5px; height: 5px;
   background: #11bba8;
   border-radius: 50%;
   margin: 0 4px 2px 4px;
   vertical-align: middle;
 }
-.triskel-sub {
-  text-align: center;
-  color: #247a95;
-  font-size: 1.06em;
-  font-weight: 400;
-  margin-bottom: 17px;
-  margin-top: 6px;
+
+/* Pour mobile/tablette, rendre encore plus petit */
+@media (max-width: 700px) {
+  .triskel-flex { gap: 7vw;}
+  .triskel-bulle {
+    width: 15vw; height: 15vw;
+    min-width: 35px; min-height: 35px;
+    max-width: 65px; max-height: 65px;
+  }
+  .triskel-keyword { font-size: 0.74em;}
+  .triskel-bulle:hover .triskel-keyword,
+  .triskel-bulle:focus .triskel-keyword { font-size: 0.93em;}
+  .triskel-bulle:hover,
+  .triskel-bulle:focus { font-size: 0.78em;}
 }
 
-@media (max-width:700px) {
-  .triskel-flex { gap: 7vw;}
+/*Veille scientifique*/
+.pubmed-monitor {
+  margin-top: 35px;
+  margin-bottom: 38px;
+  background: #eaf3fa;
+  border-radius: 13px;
+  box-shadow: 0 2px 12px #b7e7ff24;
+  padding: 17px 17px 15px 17px;
+  
+  margin-left: auto;
+  margin-right: auto;
 }
-@media (max-width:600px) {
-  .triskel-flex {
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-  }
-  .triskel-bulle {
-    width: 20vw;
-    height: 20vw;
-    min-width: 42px;
-    min-height: 42px;
-    max-width: 75px;
-    max-height: 75px;
+@media (max-width: 700px) {
+  .pubmed-monitor {
+    max-width: 98vw;
+    padding: 12px 4vw 12px 4vw;
   }
 }
+.pubmed-searchbox {
+  display: flex; gap: 8px; margin-bottom: 15px; align-items: center;
+}
+.pubmed-searchbox input {
+  flex:1;
+  padding:9px 12px;
+  border-radius:7px;
+  border: 1.2px solid #11bba869;
+  font-size:1em;
+  background:#fff;
+  color: #127782;
+}
+.pubmed-searchbox button {
+  padding:7px 18px;
+  background:#11bba8;
+  color:#fff;
+  border:none;
+  border-radius:7px;
+  font-weight:600;
+  cursor:pointer;
+  font-size:1em;
+  transition: background 0.19s;
+}
+.pubmed-searchbox button:hover {background:#127782;}
+.pubmed-results-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 1.5px 7px #b7e7ff12;
+}
+.pubmed-result-item {
+  padding: 12px 9px 12px 13px;
+  border-bottom:1px solid #eaf3fa;
+  cursor:pointer;
+  transition:background .14s;
+}
+.pubmed-result-item:last-child{border-bottom:none;}
+.pubmed-result-item:hover {
+  background: #11bba814;
+  color: #126e9c;
+}
+.pubmed-title {font-weight:bold;color:#127782;}
+.pubmed-authors, .pubmed-journal {font-size:0.94em; color:#368095;opacity:.85;}
+.pubmed-date {color:#fec905;font-size:0.91em;}
+.pubmed-modal {
+  position:fixed; top:0; left:0; width:100vw;height:100vh;background:rgba(31,52,66,0.26);
+  z-index:9999; display:flex;align-items:center;justify-content:center;
+}
+.pubmed-modal-content {
+  width: 96vw; max-width: 570px;
+  background: #fff; border-radius:12px; box-shadow:0 4px 38px #11bba840;
+  padding: 22px 19px 18px 21px; position:relative;
+  max-height:82vh; overflow-y:auto;
+}
+.pubmed-close {
+  position:absolute;top:14px;right:12px;background:none;border:none;font-size:1.7em;cursor:pointer;color:#11bba8;
+}
+.pubmed-modal-content a {color:#11bba8;}

@@ -122,3 +122,24 @@ function typeLoop() {
   }
 }
 typeLoop();
+
+//adapttion triskel compétences page d'accueil
+function adaptTriskel() {
+  const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  const bulles = document.querySelectorAll('.triskel-bulle');
+  const base = vw < 505 ? Math.max(46, vw * 0.18) : vw < 800 ? Math.max(60, vw*0.12) : 78;
+
+  bulles.forEach(bulle => {
+    bulle.style.width  = base + "px";
+    bulle.style.height = base + "px";
+    bulle.style.fontSize = (base/80*1.07) + "em";
+    bulle.querySelector('i').style.fontSize = (base/1.8) + "px";
+    // keyword 
+    let kw = bulle.querySelector('.triskel-keyword');
+    if(kw) kw.style.fontSize = (base/82*1.06) + "em";
+    let mini = bulle.querySelector('.triskel-mini');
+    if(mini) mini.style.fontSize = (base/95*1.04) + "em";
+  });
+}
+window.addEventListener("resize", adaptTriskel);
+window.addEventListener("DOMContentLoaded", adaptTriskel);
