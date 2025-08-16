@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Outils Data & Visualisation | Habib MAHJOUBI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://cdn.plot.ly/plotly-2.24.2.min.js"></script>
+  <style>
+    /* --- HERO + CARDS OUTILS --- */
+    .tools-hero {
+      display: flex; align-items: center; gap: 34px;
+      border-radius: 24px; margin: 34px 0 26px 0;
+      background: linear-gradient(110deg,#eaf3fa 55%,#c9eef6 100%);
+      box-shadow: 0 2px 15px #b7e7ff22;
+      padding: 28px 10px 26px 30px;
+      position: relative;
+    }
+    .tools-hero-logo {
+      width:82px;height:82px;border-radius:16px;background:#eaf3fa2e;
+      display:flex;align-items:center;justify-content:center;font-size:3em;color:#11bba8;box-shadow:0 2px 10px #11bba81e;
+    }
+    .tools-hero-content h1 { font-size: 2em; margin: 0; color: #11bba8; font-weight: bold;}
+    .tools-hero-content p { margin: 7px 0 2px 0; color: #127782;font-size: 1.07em;font-weight: 500;}
+    .tools-board {margin: 34px 0 24px 0; display: flex; gap: 30px; flex-wrap: wrap; justify-content: center;}
+    .tools-card {background:#f7fafc; box-shadow:0 2px 12px #b7e7ff11;
+      border-radius:13px;padding:17px 14px 13px 14px; max-width:208px; min-width:110px;
+      display:flex;flex-direction:column; align-items:center;justify-content:center;
+      border:1.5px solid #eaf3fa;transition:box-shadow .16s,transform .13s;
+      text-align:center; margin-bottom:8px; position:relative;}
+    .tools-card i, .tools-card img {font-size:2.1em;color:#11bba8;margin-bottom:7px;}
+    .tools-card-cta {
+      background:#11bba8;color:#fff;border:none;border-radius:7px;
+      padding:6px 15px;margin-top:11px;cursor:pointer;font-weight:600;font-size:.98em;
+      transition:background .13s;
+    }
+    .tools-card-cta:hover{background:#127782;}
+    .tools-card-title {font-size:1em;font-weight:700;color:#167a8c;}
+    .tools-card-desc {font-size:.97em;color:#195b80;opacity:.8;margin-top:4px;}
+    .tools-card:hover {box-shadow:0 4px 16px #11bba842;transform:scale(1.035);}
+    @media(max-width:800px){.tools-board{gap:16px;}}
+    @media(max-width:600px){
+      .tools-hero{flex-direction:column;gap:10px;padding:16px 3vw;}
+      .tools-board{flex-direction:column;align-items:center;}
+      .tools-card{max-width:97vw;}
+    }
+    /* --- MODALE DATAVIZ + INTERACTIVE --- */
+    .tools-viz-modal {
+      position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(31,52,66,0.18);
+      z-index:2000;display:flex;align-items:center;justify-content:center; animation: fadeIn .33s;
+    }
+    @keyframes fadeIn{0%{opacity:0;}100%{opacity:1;}}
+    .tools-viz-modal-content {
+      width: min(96vw, 650px);
+      background: #fff; border-radius:15px; box-shadow:0 6px 42px #11bba83e;
+      padding: 29px 25px 22px 25px; position:relative;
+      max-height:93vh; overflow-y:auto;
+    }
+    .tools-viz-close {
+      position:absolute;top:16px;right:14px;background:none;border:none;font-size:1.8em;cursor:pointer;color:#11bba8;
+      transition:color .15s;}
+    .tools-viz-close:hover { color:#db4730; }
+    #dataviz-plot {margin-top:20px;min-height:140px;}
+    /* ------ DATAVIZ TOOL CSS -------- */
+    .dataviz-tool { background: #eaf3fa; border-radius: 14px; box-shadow: 0 2px 12px #b7e7ff2a; max-width: 650px; padding: 23px 20px 27px 20px; margin: 0 auto 0 auto; border: 1.3px solid #bcdfeb42;}
+    .dataviz-label { font-weight: 700; color: #127782; margin-bottom: 8px; display: inline-block; letter-spacing: .03em; font-size: 1.02em;}
+    #datamatrix { width: 100%; max-width: 100%; min-width: 0; font-family: 'Fira Mono', 'Consolas', monospace; font-size: 1em; border-radius: 8px; border: 1.5px solid #b4d5e1; padding: 8px 12px; background: #fff; color: #145b6b; margin: 12px 0 13px 0; box-sizing: border-box; resize: vertical; transition: box-shadow .13s, border .13s;}
+    #datamatrix:focus { border-color: #11bba8; box-shadow: 0 1px 9px #11bba824; }
+    input[type="file"]#csv-file { margin-bottom: 13px; margin-top: 7px; background: #f8fcff; padding: 7px; border-radius: 6px; border: 1.2px solid #b4d5e1; color: #145b6b;}
+    .dataviz-controls { margin:12px 0 15px 0; display:flex;align-items:center;gap:17px;flex-wrap:wrap;}
+    .dataviz-controls select, .dataviz-controls input[type="color"] { padding: 6px 8px; border-radius: 6px; border: 1.2px solid #b4d5e1; font-size: 1em; background: #fff; min-width: 45px; margin-right: 3px; cursor: pointer; transition: border .14s;}
+    .dataviz-controls input[type="color"]:hover, .dataviz-controls select:focus { border-color: #11bba8; }
+    .dataviz-btn { background: #11bba8; color: #fff; font-weight: 600; border: none; border-radius: 7px; font-size: 1em; padding: 7px 19px; cursor: pointer; transition: background .13s,transform .13s; box-shadow: 0 1.5px 8px #11bba81a; margin-left: 6px;}
+    .dataviz-btn:hover { background: #127782; transform:scale(1.08); }
+    .dataviz-plot { margin-top: 22px; min-height: 190px; border-radius: 9px; background: #f7fafc; box-shadow: 0 1.5px 8px #b7e7ff14; padding: 6px 3px 5px 3px;}
+    #dataviz-metrics { margin: 14px 0 0 0; font-size: 0.98em; background:#fbfff8; border-radius:7px; box-shadow:0 1.5px 5px #b7e7ff19; padding:8px 10px 6px 10px; }
+    #dataviz-metrics table { border-collapse: collapse; margin:auto; min-width: 88%;}
+    #dataviz-metrics th, #dataviz-metrics td { border: 1px solid #eaf3fa; padding: 6px 9px; text-align: center; }
+    #dataviz-metrics th { background: #eaf3fa; color: #127782; font-weight: 700;}
+    #dataviz-metrics td { background: #fff; }
+    @media (max-width:700px){
+      .dataviz-tool{max-width:99vw;padding:13px 2vw 18px 2vw;}
+      .dataviz-controls{flex-direction:column;align-items:flex-start;gap:10px;}
+      #datamatrix{font-size:0.98em;}
+      .tools-viz-modal-content{padding:7vw 2vw;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-management"></canvas>
+  <main class="page-details">
+    <a href="index.html">&larr; Retour</a>
+    <div class="tools-hero">
+      <div class="tools-hero-logo">
+        <i class="fas fa-tools"></i>
+      </div>
+      <div class="tools-hero-content">
+        <h1>Outils Data & Visualisation</h1>
+        <p>Scripts, visualisateurs et adaptations open-source pour explorer, analyser et représenter vos données scientifiques ou métiers.</p>
+      </div>
+    </div>
+    <div class="tools-board">
+      <div class="tools-card">
+        <i class="fas fa-chart-bar"></i>
+        <div class="tools-card-title">Heatmap Visualizer</div>
+        <div class="tools-card-desc">
+          Générateur interactif de heatmap (bio/data) pour fichiers ou matrices.
+        </div>
+        <button class="tools-card-cta" id="btnShowViz">Essayer</button>
+      </div>
+      <div class="tools-card">
+        <i class="fas fa-dna"></i>
+        <div class="tools-card-title">Gene Cluster Plot</div>
+        <div class="tools-card-desc">
+          Clustering de gènes ou d’échantillons avec coloration dynamique (Python/R/JS).
+        </div>
+        <button class="tools-card-cta" onclick="window.location.href='gene-cluster.html'">Demo</button>
+      </div>
+      <div class="tools-card">
+        <i class="fas fa-file-csv"></i>
+        <div class="tools-card-title">Parseur CSV</div>
+        <div class="tools-card-desc">
+          Nettoie et convertit vos fichiers CSV pour des imports directs en R ou Pandas.
+        </div>
+        <button class="tools-card-cta" onclick="window.location.href='parseur.html'">Utiliser</button>
+      </div>
+      <div class="tools-card">
+        <i class="fas fa-project-diagram"></i>
+        <div class="tools-card-title">Diagramme interactif</div>
+        <div class="tools-card-desc">
+          Créez vos propres diagrammes et graphes de workflow (glisser/déposer).
+        </div>
+        <button class="tools-card-cta" onclick="window.location.href='diagramme.html'">Essayer</button>
+      </div>
+    </div>
+    <div class="skill-tags" style="justify-content:center;">
+      <span class="skill-tag">R</span>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">Plotly</span>
+      <span class="skill-tag">Seaborn</span>
+      <span class="skill-tag">ggplot2</span>
+      <span class="skill-tag">Pandas</span>
+      <span class="skill-tag">CSV</span>
+      <span class="skill-tag">Dashboards</span>
+      <span class="skill-tag">Automatisation</span>
+    </div>
+    <footer class="logos-footer" style="margin-top:32px;">
+      <div class="logos-orga">
+        <img src="images/python.svg" alt="Logo Python">
+        <img src="images/rlogo.svg" alt="Logo R">
+        <img src="images/plotly.png" alt="Logo Plotly">
+        <img src="images/js.png" alt="Logo JS">
+      </div>
+    </footer>
+
+    <!-- Modal outils -->
+    <div id="tools-viz-modal" class="tools-viz-modal" style="display:none;">
+        <div class="tools-viz-modal-content">
+            <button class="tools-viz-close" onclick="closeToolsViz()">&times;</button>
+            <h3>Visualisation interactive de vos données</h3>
+            <div class="dataviz-tool">
+            <form id="dataviz-form" onsubmit="return false;">
+                <label class="dataviz-label">Titre du graphique :</label>
+                <input id="viz-title" type="text" placeholder="Titre du graphique" style="margin-bottom:6px;">
+                <label class="dataviz-label">Axe X :</label>
+                <input id="viz-xaxis" type="text" placeholder="ex : Jours, Génes..." style="margin-bottom:6px;">
+                <label class="dataviz-label">Axe Y :</label>
+                <input id="viz-yaxis" type="text" placeholder="ex : Expression" style="margin-bottom:12px;">
+                <label class="dataviz-label">Matrice/CSV (copier depuis Excel possible) :</label>
+                <textarea id="datamatrix" rows="7" placeholder="J1 J3 J5 J7 J9&#10;gene1 1 1 1 1 1&#10;gene2 0.702 0.610 0.679 0.513 0.527&#10;..."></textarea>
+                <input type="file" id="csv-file" accept=".csv,text/csv" style="margin:9px 0 5px 0;" onchange="loadCSV(this)">
+                <div class="dataviz-controls">
+                <span>Couleur min :</span>
+                <input type="color" id="color-min" value="#ffffe0">
+                <span>Couleur max :</span>
+                <input type="color" id="color-max" value="#11bba8">
+                <span>Type :</span>
+                <select id="viz-type">
+                    <option value="heatmap">Heatmap</option>
+                    <option value="bar">Barres</option>
+                    <option value="scatter">Nuage (scatter)</option>
+                    <option value="line">Linéaire</option>
+                    <option value="box">Boxplot</option>
+                    <option value="hist">Histogramme</option>
+                </select>
+                <button onclick="drawViz()" class="dataviz-btn">Visualiser</button>
+                </div>
+                <label class="dataviz-label">Notes :</label>
+                <textarea id="viz-notes" rows="2" placeholder="Note ou conclusion pour ce graphique"></textarea>
+            </form>
+            <div id="dataviz-plot" class="dataviz-plot"></div>
+            <div id="dataviz-info" class="dataviz-info"></div>
+            <div id="viz-notes-display" class="dataviz-notes"></div>
+            <button class="dataviz-btn" id="btn-download" style="display:none;margin-top:14px;" onclick="savePlot()">Télécharger le graphique</button>
+            </div>
+        </div>
+        </div>
+        <script src="https://cdn.plot.ly/plotly-2.24.2.min.js"></script>
+  </main>
+  <script>
+    // Bg animé repris de management
+  const SYMBOLS = ["⚙","🔧"];
+  const COLORS = ["#11bba4","#0fc1c7","#127782","#0cceea","#11bba8"];
+  function resizeBgManagement() {
+    const c = document.getElementById('bg-management');
+    if (!c) return;
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+  }
+  resizeBgManagement();
+  window.addEventListener('resize', resizeBgManagement);
+  const NB_OBJ = 10;
+  const symbols = [];
+  for(let i=0;i<NB_OBJ;i++) {
+    const si = Math.floor(Math.random()*SYMBOLS.length);
+    symbols.push({
+      x: Math.random()*window.innerWidth,
+      y: Math.random()*window.innerHeight,
+      size: 32 + Math.random()*25,
+      symbol: SYMBOLS[si],
+      color: COLORS[si % COLORS.length],
+      dx: (Math.random()-0.5)*0.15,
+      dy: (Math.random()-0.5)*0.15,
+      rot: (Math.random()-0.5)*0.007,
+      angle: Math.random()*2*Math.PI,
+      opacity: 0.14 + Math.random()*0.17
+    });
+  }
+  function animateBgManagement(time=0){
+    const c = document.getElementById('bg-management');
+    if(!c) return;
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    ctx.clearRect(0,0,w,h);
+    for(let obj of symbols){
+      obj.x += obj.dx; obj.y += obj.dy;
+      obj.angle += obj.rot;
+      if(obj.x < -50 || obj.x > w+50) obj.dx *= -1;
+      if(obj.y < -50 || obj.y > h+50) obj.dy *= -1;
+      ctx.save();
+      ctx.translate(obj.x, obj.y);
+      ctx.rotate(obj.angle);
+      ctx.globalAlpha = obj.opacity;
+      ctx.font = `${obj.size}px Arial`;
+      ctx.fillStyle = obj.color;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(obj.symbol, 0, 0);
+      ctx.restore();
+    }
+    requestAnimationFrame(animateBgManagement);
+  }
+  animateBgManagement();
+  // Pour le bouton retour en haut
+  window.addEventListener('scroll', function() {
+    const topBtn = document.getElementById('top-btn');
+    if(topBtn) topBtn.style.display = (window.scrollY > 250) ? 'block' : 'none';
+  });
+
+  //fin
+  document.getElementById('btnShowViz').addEventListener('click', function(e){
+    e.preventDefault();
+    document.getElementById('tools-viz-modal').style.display = '';
+  });
+  function closeToolsViz(){ document.getElementById('tools-viz-modal').style.display = "none"; }
+  // CSV/import
+  function loadCSV(input) {
+    if (!input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      let txt = e.target.result;
+      txt = txt.replaceAll(';',' ').replaceAll(',',' ');
+      document.getElementById('datamatrix').value = txt;
+    };
+    reader.readAsText(input.files[0]);
+  }
+  function parseBioMatrix(txt) {
+    let rows = txt.trim().split('\n').filter(Boolean);
+    let cols = rows[0].split(/[\t,; ]+/).slice(1);
+    let y = [], z = [];
+    for(let i=1;i<rows.length;i++) {
+      let parts = rows[i].split(/[\t,; ]+/).filter(Boolean);
+      y.push(parts[0]);
+      z.push(parts.slice(1).map(Number));
+    }
+    return {x:cols, y:y, z:z};
+  }
+  function calcFastStats(arr) {
+    let n = arr.length;
+    let mean = arr.reduce((a,b)=>a+Number(b),0)/n;
+    let std = Math.sqrt(arr.reduce((a,b)=>a+Math.pow(Number(b)-mean,2),0) / n);
+    let min = Math.min(...arr), max = Math.max(...arr);
+    return {mean,std,min,max};
+  }
+  function drawViz() {
+    let txt = document.getElementById('datamatrix').value;
+    let type = document.getElementById('viz-type').value;
+    if(!txt.trim()) return false;
+    let {x, y, z} = parseBioMatrix(txt);
+    if(x.length === 0 || y.length === 0) return false;
+    let cmin = document.getElementById('color-min').value;
+    let cmax = document.getElementById('color-max').value;
+    let plotDiv = document.getElementById('dataviz-plot');
+    let config = {responsive:true,toImageButtonOptions:{filename:"dataviz"}};
+    let data = [], layout={}, hovertemplate='', showlegend=true;
+    if(type==="heatmap") {
+      data = [{
+        z:z, x:x, y:y, type:'heatmap', colorscale:[[0,cmin],[1,cmax]],
+        colorbar:{title:"Valeur"}, zmin:Math.min(...z.flat()), zmax:Math.max(...z.flat())
+      }];
+      layout = {margin:{t:25,r:5,l:65,b:30},yaxis:{automargin:true}, hovermode:'closest'};
+      showlegend = false;
+    } else if(type==="bar") {
+      if(z.length==1) {
+        let stat = calcFastStats(z[0]);
+        hovertemplate = "Valeur : %{y}<br>Moyenne : "+stat.mean.toFixed(2)+"<br>Écart-type : "+stat.std.toFixed(2)+"<extra></extra>";
+        data = [{
+          x: x, y: z[0], type: "bar", marker:{color:cmax},
+          hovertemplate, name:y[0]
+        }];
+      } else {
+        data = y.map((gene,i)=>{
+          let stat = calcFastStats(z[i]);
+          return {
+            x: x, y: z[i], type:'bar', name:gene,
+            marker:{color:cmax},
+            hovertemplate:"Valeur : %{y}<br>Moyenne : "+stat.mean.toFixed(2)+"<br>Écart-type : "+stat.std.toFixed(2)+"<extra></extra>"
+          }
+        });
+        layout = {barmode:'group'};
+      }
+      layout = Object.assign(layout, {margin:{t:25,r:5,l:45,b:30},yaxis:{automargin:true}});
+    } else if(type=="scatter") {
+      data = y.map((gene,i)=>{
+        let stat = calcFastStats(z[i]);
+        return {
+          x: x, y: z[i], type:'scatter', mode:'lines+markers',
+          name: gene, marker:{size:10,color:cmax},
+          hovertemplate:"Valeur : %{y}<br>Moyenne : "+stat.mean.toFixed(2)+"<br>Écart-type : "+stat.std.toFixed(2)+"<extra></extra>",
+        }
+      });
+      layout = {margin:{t:25,r:5,l:45,b:30},yaxis:{automargin:true}};
+    } else if(type==="box") {
+      data = [];
+      for(let i=0;i<x.length;i++) {
+        let vals = z.map(row=>row[i]);
+        let stat = calcFastStats(vals);
+        data.push({
+          y: vals, name: x[i], type: "box", marker:{color:cmin},
+          boxmean: true,
+          hovertemplate: "Médiane : %{median}<br>Moyenne : "+stat.mean.toFixed(2)+"<br>Écart-type : "+stat.std.toFixed(2)+"<br>Min : "+stat.min.toFixed(2)+"<br>Max : "+stat.max.toFixed(2)+"<extra></extra>"
+        });
+      }
+      layout = {margin:{t:25,r:5,l:45,b:30},yaxis:{automargin:true}};
+      showlegend = false;
+    } else if(type==="hist") {
+      let all = z.flat(), stat = calcFastStats(all);
+      data = [{
+        x: all, type:'histogram', marker:{color:cmax},
+        nbinsx:10,
+        hovertemplate: "n=%{y}<br>Moyenne : "+stat.mean.toFixed(2)+"<br>Écart-type : "+stat.std.toFixed(2)
+      }];
+      layout = {margin:{t:25,r:5,l:45,b:30},yaxis:{automargin:true}};
+      showlegend = false;
+    }
+    layout.showlegend = showlegend;
+    Plotly.newPlot(plotDiv, data, layout, config);
+    document.getElementById('btn-download').style.display = '';
+    return false;
+  }
+  function savePlot() {
+    Plotly.downloadImage('dataviz-plot', {format:"png",filename:"dataviz"});
+  }
+  </script>
+  <a href="#" class="scrolltop-btn" id="top-btn"
+  onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
+  ↑ Retour en haut
+</a>
+</body>
+</html>
