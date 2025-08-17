@@ -198,45 +198,40 @@ function loadCSV(input) {
   const reader = new FileReader();
   reader.onload = e => {
     let txt = e.target.result;
-    txt = txt.replaceAll(';',' ').replaceAll(',',' ');
+    // Remplace , ; tabulation par des espaces pour un parsing robuste
+    txt = txt.replace(/[,;\t]/g,' ');
     document.getElementById('datamatrix').value = txt;
   };
   reader.readAsText(input.files[0]);
 }
 
+// Parsing robuste, prend en compte tout délimiteur et n'écrase pas les colonnes,
+// même si elles sont collées ou séparées par espaces multiples
 function parseBioMatrix(txt) {
-  let rows = txt.trim().split('\n').filter(Boolean);
-  let cols = rows[0].split(/[\t,; ]+/).slice(1);
+  let rows = txt.trim().split(/\r?\n/).filter(Boolean);
+  // Séparateurs : espace, tabulation, virgule, point-virgule
+  let sep = /[ \t,;]+/;
+
+  let head = rows[0].split(sep);
+  let x = head.slice(1);
   let y = [], z = [];
-  for(let i=1;i<rows.length;i++) {
-    let parts = rows[i].split(/[\t,; ]+/).filter(Boolean);
+  for(let i=1; i<rows.length; i++) {
+    let parts = rows[i].split(sep);
+    if(parts.length < 2) continue; // sauter lignes incomplètes
     y.push(parts[0]);
     z.push(parts.slice(1).map(Number));
   }
-  return {x:cols, y:y, z:z};
+  return {x,y,z};
 }
 
-function mean(nums) {
-  let n = nums.length;
-  return (n>0) ? nums.reduce((a, b) => a + b, 0) / n : 0;
-}
-function std(nums, m) {
-  let n = nums.length;
-  return n>0 ? Math.sqrt(nums.reduce((a, b) => a + Math.pow(b - m, 2), 0) / n) : 0;
-}
-
-// Calcule R2 pour la première série
-function calcR2(x, y) {
-  let avgY = mean(y), n = y.length;
-  let ssTotal = y.reduce((a,yi) => a + Math.pow(yi - avgY, 2),0);
-  let m = (y[n-1]-y[0])/(x[n-1]-(x[0]));
-  let b = y[0] - m*x[0];
-  let ssRes = 0;
-  for(let i=0;i<n;i++) {
-    let yi_hat = m*x[i]+b;
-    ssRes += Math.pow(y[i] - yi_hat,2);
-  }
-  return ssTotal ? 1 - (ssRes/ssTotal) : 0;
+function calcFastStats(arr) {
+  let numbers = arr.map(Number);
+  let n = numbers.length;
+  if(n===0) return {mean:NaN, std:NaN, min:NaN, max:NaN};
+  let mean = numbers.reduce((a,b)=>a+b,0)/n;
+  let std = Math.sqrt(numbers.reduce((a,b)=>a+Math.pow(b-mean,2),0)/n);
+  let min = Math.min(...numbers), max = Math.max(...numbers);
+  return {mean,std,min,max};
 }
 
 function drawViz() {
@@ -246,21 +241,25 @@ function drawViz() {
   let xaxis = document.getElementById("viz-xaxis").value.trim();
   let yaxis = document.getElementById("viz-yaxis").value.trim();
   let notes = document.getElementById("viz-notes").value.trim();
+  let plotDiv = document.getElementById('dataviz-plot');
+  let infoDiv = document.getElementById('dataviz-info');
+  let notesDiv = document.getElementById('viz-notes-display');
+  
   if(!txt.trim()) return false;
+  
   let {x, y, z} = parseBioMatrix(txt);
   if(x.length === 0 || y.length === 0) return false;
   let cmin = document.getElementById('color-min').value;
   let cmax = document.getElementById('color-max').value;
-  let plotDiv = document.getElementById('dataviz-plot');
-  let infoDiv = document.getElementById('dataviz-info');
-  let notesDiv = document.getElementById('viz-notes-display');
   let config = {responsive:true,toImageButtonOptions:{filename:"dataviz"}};
-  let data = [], layout={}, hovertemplate='', showlegend=true, addInfo = '';
+  let data = [], layout={}, hovertemplate='', showlegend=true, addInfo='';
 
   if(type === "heatmap") {
     data = [{
-      z:z, x:x, y:y, type:'heatmap', colorscale:[[0,cmin],[1,cmax]],
-      colorbar:{title:yaxis||"Valeur"}, zmin:Math.min(...z.flat()), zmax:Math.max(...z.flat())
+      z: z, x: x, y: y, type:'heatmap',
+      colorscale:[[0,cmin],[1,cmax]],
+      colorbar:{title:yaxis||"Valeur"},
+      zmin:Math.min(...z.flat()), zmax:Math.max(...z.flat())
     }];
     layout = {
       title: title||"Heatmap",
@@ -270,7 +269,7 @@ function drawViz() {
       hovermode:'closest'
     };
     showlegend = false;
-  } else if(type==="bar") {
+  } else if(type === "bar") {
     if(z.length==1) {
       let stat = calcFastStats(z[0]);
       hovertemplate = "Valeur : %{y}<br>Moyenne : "+stat.mean.toFixed(2)+"<br>Écart-type : "+stat.std.toFixed(2)+"<extra></extra>";
@@ -282,7 +281,7 @@ function drawViz() {
     } else {
       data = y.map((gene,i)=>{
         let stat = calcFastStats(z[i]);
-        addInfo += `<b>${gene}</b> : Moyenne=${stat.mean.toFixed(2)}, Écart-type=${stat.std.toFixed(2)}<br>`;
+        addInfo += `<b>${gene}</b> : Moyenne=${stat.mean.toFixed(2)}, Écart-type=${stat.std.toFixed(2)}<br>`;
         return {
           x: x, y: z[i], type:'bar', name:gene,
           marker:{color:cmax},
@@ -299,8 +298,7 @@ function drawViz() {
     });
   } else if(type==="scatter" || type==="line") {
     data = y.map((gene,i)=>{
-      let stat = calcFastStats(z[i]); let r2 = calcR2(x.map(Number),z[i]);
-      addInfo += `<b>${gene}</b> : Moyenne=${stat.mean.toFixed(2)}, Écart-type=${stat.std.toFixed(2)}, R²=${r2.toFixed(2)}<br>`;
+      let stat = calcFastStats(z[i]);
       return {
         x: x,
         y: z[i],
@@ -309,8 +307,8 @@ function drawViz() {
         name: gene,
         marker:{size:10,color:cmax},
         hovertemplate:"Valeur : %{y}<br>Moyenne : "+stat.mean.toFixed(2)
-        +"<br>Écart-type : "+stat.std.toFixed(2)
-        +"<br>R² : "+r2.toFixed(2)+"<extra></extra>"
+          +"<br>Écart-type : "+stat.std.toFixed(2)
+          +"<extra></extra>"
       }
     });
     layout = {
@@ -360,28 +358,12 @@ function drawViz() {
   layout.showlegend = showlegend;
   Plotly.newPlot(plotDiv, data, layout, {responsive:true});
   document.getElementById('btn-download').style.display = '';
-  document.getElementById('dataviz-info').innerHTML = addInfo;
-  document.getElementById('viz-notes-display').style.display = notes ? "" : "none";
-  document.getElementById('viz-notes-display').innerHTML = notes ? '<b>Note :</b> ' + notes : '';
+  if(infoDiv) infoDiv.innerHTML = addInfo;
+  notesDiv.style.display = notes ? "" : "none";
+  notesDiv.innerHTML = notes ? '<b>Note :</b> ' + notes : '';
   return false;
 }
+
 function savePlot() {
   Plotly.downloadImage('dataviz-plot', {format:"png", filename:"dataviz"});
-}
-function calcFastStats(arr){
-  let n=arr.length,mean=n>0?arr.reduce((a,b)=>a+Number(b),0)/n:0;
-  let std=n>0?Math.sqrt(arr.reduce((a,b)=>a+Math.pow(Number(b)-mean,2),0)/n):0;
-  let min=Math.min(...arr),max=Math.max(...arr); return {mean,std,min,max};
-}
-function calcR2(x, y) {
-  let avgY = mean(y), n = y.length;
-  let ssTotal = y.reduce((a,yi) => a + Math.pow(yi - avgY, 2),0);
-  let m = (y[n-1]-y[0])/(x[n-1]-(x[0]));
-  let b = y[0] - m*x[0];
-  let ssRes = 0;
-  for(let i=0;i<n;i++) {
-    let yi_hat = m*x[i]+b;
-    ssRes += Math.pow(y[i] - yi_hat,2);
-  }
-  return ssTotal ? 1 - (ssRes/ssTotal) : 0;
 }
