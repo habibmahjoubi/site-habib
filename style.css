@@ -943,8 +943,8 @@ aside footer {
 
 /*CSS modale heat map visualisation*/
 .tools-viz-modal {
-  position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(31,52,66,0.18);
-  z-index:2000;display:flex;align-items:center;justify-content:center;
+  position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(31,52,66,0.18);
+  z-index:2000; display:flex; align-items:center; justify-content:center;
   animation: fadeIn .33s;
 }
 @keyframes fadeIn{0%{opacity:0;}100%{opacity:1;}}
@@ -972,15 +972,64 @@ aside footer {
   margin-left: auto;
   margin-right: auto;
 }
-#viz-what {
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1.2px solid #b4d5e1;
+.dataviz-notes {
+  margin: 8px 0 6px 0;
+  font-size: 1.05em;
+  color: #2c728c;
+  background: #d9fff2;
+  border-radius:7px;
+  padding: 8px 12px;
+}
+.dataviz-section {
+  margin:12px 0 10px 0;
+  padding:7px 5px 5px 10px;
+  background: #f9fcff;
+  border-radius:8px;
+  font-size:0.97em;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap:7px 16px;
+}
+.dataviz-section strong {
+  min-width:130px;
+  color:#229985;padding-right:7px;
+  display:inline-block;
+}
+.dataviz-label {display:block;font-weight:bold;margin-top:7px;color:#22a;}
+.dataviz-controls {
+  display: flex; gap:8px; flex-wrap:wrap;
+  align-items: center;
+  margin:11px 0;
+  font-size:0.99em;
+}
+.dataviz-btn {
+  background: #11bba8;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-family: inherit;
   font-size: 1em;
-  background: #fff;
-  min-width: 45px;
-  cursor: pointer;
-  transition: border .14s;
+  padding: 8px 17px;
+  margin-left:13px;
+  cursor:pointer;
+  transition: background 0.17s;
+}
+.dataviz-btn:hover {
+  background: #10a893;
+}
+textarea#datamatrix, textarea#viz-notes {
+  width:99%; box-sizing:border-box;
+  border-radius:7px; border:1.2px solid #c4e0ef;
+  padding:6px 8px; font-size:1em;
+}
+input[type="text"], input[type="number"], select {
+  border-radius:6px; border:1.1px solid #c4e0ef;
+  padding:6px 7px; font-size:1em;
+  margin-right:3px;
+}
+input[type="color"] {
+  width:28px; height:28px; border:none; background:none; margin-right:5px;
 }
 /*css pour gene cluster modal*/
 .modal {

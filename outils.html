@@ -70,7 +70,7 @@
     .dataviz-controls { margin:12px 0 15px 0; display:flex;align-items:center;gap:17px;flex-wrap:wrap;}
     .dataviz-controls select, .dataviz-controls input[type="color"] { padding: 6px 8px; border-radius: 6px; border: 1.2px solid #b4d5e1; font-size: 1em; background: #fff; min-width: 45px; margin-right: 3px; cursor: pointer; transition: border .14s;}
     .dataviz-controls input[type="color"]:hover, .dataviz-controls select:focus { border-color: #11bba8; }
-    .dataviz-btn { background: #11bba8; color: #fff; font-weight: 600; border: none; border-radius: 7px; font-size: 1em; padding: 7px 19px; cursor: pointer; transition: background .13s,transform .13s; box-shadow: 0 1.5px 8px #11bba81a; margin-left: 6px;}
+    .dataviz-btn { background: #11bba8; color: #fff; font-weight: 500; border: none; border-radius: 7px; font-size: 1em; padding: 7px 10px; cursor: pointer; transition: background .13s,transform .13s; box-shadow: 0 1.5px 6px #11bba81a; margin-left: 6px;}
     .dataviz-btn:hover { background: #127782; transform:scale(1.08); }
     .dataviz-plot { margin-top: 22px; min-height: 190px; border-radius: 9px; background: #f7fafc; box-shadow: 0 1.5px 8px #b7e7ff14; padding: 6px 3px 5px 3px;}
     #dataviz-metrics { margin: 14px 0 0 0; font-size: 0.98em; background:#fbfff8; border-radius:7px; box-shadow:0 1.5px 5px #b7e7ff19; padding:8px 10px 6px 10px; }
@@ -176,10 +176,74 @@
           <form id="dataviz-form" onsubmit="return false;">
             <label class="dataviz-label">Titre du graphique :</label>
             <input id="viz-title" type="text" placeholder="Titre du graphique" style="margin-bottom:6px;">
+            <div class="dataviz-section">
+              <strong>Mise en forme Titre:</strong>
+              <label>Taille:</label>
+              <input type="number" id="title-size" min="10" max="45" value="26" style="width:55px">
+              <label>Police:</label>
+              <select id="title-font">
+                <option>Arial</option><option>Verdana</option><option>Helvetica</option><option>Georgia</option><option>Trebuchet MS</option>
+              </select>
+              <label>Couleur:</label>
+              <input type="color" id="title-color" value="#1f77b4">
+            </div>
             <label class="dataviz-label">Axe X :</label>
             <input id="viz-xaxis" type="text" placeholder="ex : Jours, min, type de stress..." style="margin-bottom:6px;">
             <label class="dataviz-label">Axe Y :</label>
             <input id="viz-yaxis" type="text" placeholder="ex : Gènes" style="margin-bottom:12px;">
+            <div class="dataviz-section">
+              <strong>Mise en forme axes:</strong>
+              <label>X: taille</label>
+              <input type="number" id="xaxis-fontsize" min="8" max="30" value="17" style="width:43px">
+              <label>police</label>
+              <select id="xaxis-font">
+                <option>Arial</option><option>Verdana</option><option>Georgia</option>
+              </select>
+              <label>couleur</label>
+              <input type="color" id="xaxis-color" value="#333333">
+              <label>Y: taille</label>
+              <input type="number" id="yaxis-fontsize" min="8" max="30" value="17" style="width:43px">
+              <label>police</label>
+              <select id="yaxis-font">
+                <option>Arial</option><option>Verdana</option><option>Georgia</option>
+              </select>
+              <label>couleur</label>
+              <input type="color" id="yaxis-color" value="#333333">
+            </div>
+            <div class="dataviz-section">
+              <strong>Paramètres échelles :</strong>
+              <label>Y min:</label>
+              <input type="number" id="y-min" placeholder="auto" style="width:70px">
+              <label>Y max:</label>
+              <input type="number" id="y-max" placeholder="auto" style="width:70px">
+              <label>X min:</label>
+              <input type="text" id="x-min" placeholder="auto" style="width:70px">
+              <label>X max:</label>
+              <input type="text" id="x-max" placeholder="auto" style="width:70px">
+            </div>
+            <div class="dataviz-section">
+              <label for="legend-title" style="font-weight:bold;">Titre de la légende :</label>
+              <input type="text" id="legend-title" placeholder="Type de stress" style="width:180px;">
+            </div>
+            <div class="dataviz-section">
+              <input type="checkbox" id="show-grid" checked>
+              <label for="show-grid">Afficher grille</label>
+              <input type="checkbox" id="show-legend" checked>
+              <label for="show-legend">Afficher légende</label>
+              <input type="checkbox" id="invert-yaxis">
+              <label for="invert-yaxis">Inverser Y</label>
+            </div>
+            <div class="dataviz-section" id="box-colors-section" style="display:none;">
+              <strong>Couleurs des boxes :</strong>
+              <input type="text" id="box-colors" placeholder="#11bba8, #339933, #cc5500, #ccdd00" style="width:260px;">
+              <span style="font-size:0.93em;">(Mettre une couleur hex pour chaque box, séparées par , )</span>
+            </div>
+            <div class="dataviz-section">
+              <label>Largeur (px):</label>
+              <input type="number" id="fig-width" min="200" max="2400" value="650" style="width:65px;">
+              <label>Hauteur (px):</label>
+              <input type="number" id="fig-height" min="180" max="1600" value="420" style="width:65px;">
+            </div>
             <label class="dataviz-label">Matrice/CSV (copier depuis Excel possible) :</label>
             <textarea id="datamatrix" rows="7" placeholder="J1 J3 J5 J7 J9&#10;gene1 1 1 1 1 1&#10;gene2 0.702 0.610 0.679 0.513 0.527&#10;..."></textarea>
             <input type="file" id="csv-file" accept=".csv,text/csv" style="margin:9px 0 5px 0;" onchange="loadCSV(this)">
@@ -199,18 +263,322 @@
               </select>
               <button onclick="drawViz()" class="dataviz-btn">Visualiser</button>
             </div>
-            <label class="dataviz-label">Notes :</label>
-            <textarea id="viz-notes" rows="2" placeholder="Note ou conclusion pour ce graphique"></textarea>
           </form>
           <div id="dataviz-plot" class="dataviz-plot"></div>
-          <div id="dataviz-info" class="dataviz-info"></div> <!-- Ajouté pour afficher les stats -->
-          <div id="viz-notes-display" class="dataviz-notes"></div>
-          <button class="dataviz-btn" id="btn-download" style="display:none;margin-top:14px;" onclick="savePlot()">Télécharger le graphique</button>
+          <button class="dataviz-btn" id="btn-download" style="display:none;margin-top:12px;" onclick="savePlot()">Télécharger le graphique</button>
         </div>
       </div>
     </div>
     <script src="https://cdn.plot.ly/plotly-2.24.2.min.js"></script>
-    <script src="dataviz.js"></script> 
+    <script>
+    window.legendCustomNames = [];
+
+    function parseBioMatrix(txt) {
+      txt = txt.replace(/(\d),(\d)/g, '$1.$2');
+      let rows = txt.trim().split(/\r?\n/).filter(Boolean);
+      let sep = /[ \t,;]+/;
+      let head = rows[0].split(sep);
+      let x = head.slice(1);
+      let y = [], z = [];
+      for (let i = 1; i < rows.length; i++) {
+        let parts = rows[i].split(sep);
+        if (parts.length < 2) continue;
+        y.push(parts[0]);
+        z.push(parts.slice(1).map(v => Number(v)));
+      }
+      return { x, y, z };
+    }
+
+    function loadCSV(input) {
+      if (!input.files.length) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('datamatrix').value = e.target.result;
+        updateLegendNamesInputs();
+      };
+      reader.readAsText(input.files[0]);
+    }
+
+    function updateLegendNamesInputs() {
+      let txt = document.getElementById('datamatrix').value.trim();
+      if (!txt) return;
+      let rows = txt.trim().split(/\r?\n/).filter(Boolean);
+      let sep = /[ \t,;]+/;
+      let type = document.getElementById('viz-type').value;
+      let legendSection = document.getElementById('legend-names-section');
+      let legendInputsDiv = document.getElementById('legend-names-inputs');
+      legendInputsDiv.innerHTML = '';
+      // On affiche les noms de séries seulement sur bar, line, scatter, box
+      if (["bar", "line", "scatter", "box"].includes(type)) {
+        let yLabels = [];
+        for (let i = 1; i < rows.length; i++) {
+          let parts = rows[i].split(sep);
+          if (parts.length<2) continue;
+          yLabels.push(parts[0]);
+        }
+        if (yLabels.length == 0) {
+          legendSection.style.display = "none";
+          return;
+        }
+        window.legendCustomNames = yLabels.slice();
+        yLabels.forEach((lab, i) => {
+          let inp = document.createElement('input');
+          inp.type = "text";
+          inp.value = lab;
+          inp.setAttribute("data-index", i);
+          inp.style.margin = "3px 11px 3px 0";
+          inp.style.width = "100px";
+          inp.oninput = function() {
+            legendCustomNames[i] = this.value;
+            drawViz();
+          };
+          legendInputsDiv.appendChild(document.createTextNode((type==="box"?"Catégorie ":"Série ")+(i+1)+": "));
+          legendInputsDiv.appendChild(inp);
+        });
+        legendSection.style.display = "";
+      } else {
+        legendSection.style.display = "none";
+        window.legendCustomNames = [];
+      }
+    }
+
+    // Coloration dynamique pour boxplot seulement
+    function showBoxColorsIfNeeded() {
+      document.getElementById('box-colors-section').style.display =
+        document.getElementById('viz-type').value === "box" ? "" : "none";
+    }
+
+    // Met à jour les inputs dynamiques au changement de type ou data
+    document.getElementById('datamatrix').addEventListener('input', updateLegendNamesInputs);
+    document.getElementById('viz-type').addEventListener('change', function() {
+      updateLegendNamesInputs();
+      showBoxColorsIfNeeded();
+    });
+
+    function drawViz() {
+      let txt = document.getElementById('datamatrix').value;
+      let type = document.getElementById('viz-type').value;
+      let title = document.getElementById("viz-title").value.trim();
+      let xaxis = document.getElementById("viz-xaxis").value.trim();
+      let yaxis = document.getElementById("viz-yaxis").value.trim();
+      let plotDiv = document.getElementById('dataviz-plot');
+      if(!txt.trim()) return false;
+      let {x, y, z} = parseBioMatrix(txt);
+      if(x.length === 0 || y.length === 0) return false;
+      // options avancées
+      let legendTitle = document.getElementById('legend-title').value.trim();
+      let titleFont = document.getElementById('title-font').value;
+      let titleSize = parseInt(document.getElementById('title-size').value) || 26;
+      let titleColor = document.getElementById('title-color').value;
+      let xFont = document.getElementById('xaxis-font').value;
+      let xFontSize = parseInt(document.getElementById('xaxis-fontsize').value) || 17;
+      let xColor = document.getElementById('xaxis-color').value;
+      let yFont = document.getElementById('yaxis-font').value;
+      let yFontSize = parseInt(document.getElementById('yaxis-fontsize').value) || 17;
+      let yColor = document.getElementById('yaxis-color').value;
+      let ymin = document.getElementById('y-min').value.trim();
+      let ymax = document.getElementById('y-max').value.trim();
+      let xmin = document.getElementById('x-min').value.trim();
+      let xmax = document.getElementById('x-max').value.trim();
+      let showGrid = document.getElementById('show-grid').checked;
+      let showLegend = document.getElementById('show-legend').checked;
+      let invertY = document.getElementById('invert-yaxis').checked;
+      let figWidth = parseInt(document.getElementById('fig-width').value)||650;
+      let figHeight = parseInt(document.getElementById('fig-height').value)||420;
+      let cmin = document.getElementById('color-min').value;
+      let cmax = document.getElementById('color-max').value;
+      const couleurs = [
+        "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
+        "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+      ];
+      let data = [], layout = {};
+      // Utilise les légendes custom si présentes
+      let customNames = window.legendCustomNames || [];
+
+      if(type === "heatmap") {
+        let baseHeight = 300;
+        let rowHeight = Math.max(18, 18 - Math.max(0, y.length - 12));
+        let newHeight = Math.max(baseHeight, y.length * rowHeight + 80, figHeight);
+        data = [{
+          z: z, x: x, y: y, type:'heatmap',
+          colorscale: [[0, cmin], [1, cmax]],
+          colorbar: { title: yaxis || "Valeur" },
+          zmin: Math.min(...z.flat()),
+          zmax: Math.max(...z.flat()),
+          name: title || "Valeurs",
+          showscale: showLegend
+        }];
+        layout = {
+          margin: { t: 55, r: 40, l: 90, b: 60 },
+          height: newHeight, width: figWidth,
+          yaxis: { automargin: true, showgrid: !!showGrid },
+          xaxis: { showgrid: !!showGrid },
+          hovermode: 'closest',
+          showlegend: showLegend
+        };
+      }
+      else if(type === "bar" || type==="line") {
+        if(z.length==1) {
+          data = [{
+            x: x,
+            y: z[0],
+            type: type==="bar" ? "bar" : "scatter",
+            mode: type==="line" ? "lines+markers" : undefined,
+            marker: {color: couleurs[0]},
+            name: customNames[0] || y[0] || "Données"
+          }];
+        } else {
+          data = y.map((gene,i)=>({
+            x: x,
+            y: z[i],
+            type:type==="bar"?"bar":"scatter",
+            mode:type==="line"?"lines+markers":undefined,
+            name: customNames[i] || gene || ("Série "+(i+1)),
+            marker: {color: couleurs[i % couleurs.length]}
+          }));
+        }
+        let allY = z.flat().filter(n=>!isNaN(n));
+        let minY = Math.min(...allY);
+        let maxY = Math.max(...allY);
+        let padding = (maxY - minY) * 0.1;
+        if (!isFinite(padding) || padding === 0) padding = 0.5;
+        layout = {
+          margin:{t:55,r:35,l:70,b:60},
+          height: figHeight, width: figWidth,
+          yaxis: {
+            automargin: true,
+            range: [minY-padding, maxY+padding],
+            showgrid: !!showGrid
+          },
+          xaxis: { showgrid: !!showGrid },
+          barmode: 'group',
+          showlegend: showLegend
+        };
+        if (ymin !== "") layout.yaxis.range[0] = +ymin;
+        if (ymax !== "") layout.yaxis.range[1] = +ymax;
+        if (xmin !== "") { layout.xaxis.range = layout.xaxis.range || []; layout.xaxis.range[0] = isNaN(xmin)?xmin:+xmin; }
+        if (xmax !== "") { layout.xaxis.range = layout.xaxis.range || []; layout.xaxis.range[1] = isNaN(xmax)?xmax:+xmax; }
+      }
+      else if(type === "scatter") {
+        let allY = z.flat().filter(n=>!isNaN(n));
+        let minY = Math.min(...allY);
+        let maxY = Math.max(...allY);
+        let padding = (maxY - minY) * 0.1;
+        if (!isFinite(padding) || padding === 0) padding = 0.5;
+        if(y.length === 1) {
+          let scatterX = x.map(xx => Number(xx));
+          let scatterY = z[0];
+          data = [{
+            x: scatterX,
+            y: scatterY,
+            type: "scatter",
+            mode: "markers",
+            marker: {color: "black", size: 7},
+            showlegend: showLegend,
+            name: customNames[0] || y[0] || "Série"
+          }];
+        } else {
+          data = y.map((gene, i) => ({
+            x: x,
+            y: z[i],
+            type: "scatter",
+            mode: "markers",
+            marker: {color: couleurs[i%couleurs.length], size: 7},
+            name: customNames[i] || gene || ("Série "+(i+1)),
+            showlegend: showLegend
+          }));
+        }
+        layout = {
+          margin: {t:55, r:35, l:65, b:60},
+          height: figHeight, width: figWidth,
+          yaxis: {
+            automargin: true,
+            range: [minY-padding, maxY+padding],
+            showgrid: !!showGrid
+          },
+          xaxis: { showgrid: !!showGrid },
+          showlegend: showLegend
+        };
+        if (ymin !== "") layout.yaxis.range[0] = +ymin;
+        if (ymax !== "") layout.yaxis.range[1] = +ymax;
+        if (xmin !== "") { layout.xaxis.range = layout.xaxis.range || []; layout.xaxis.range[0] = isNaN(xmin)?xmin:+xmin; }
+        if (xmax !== "") { layout.xaxis.range = layout.xaxis.range || []; layout.xaxis.range[1] = isNaN(xmax)?xmax:+xmax; }
+      }
+      else if(type==="box") {
+        data = [];
+        let userBoxColors = (document.getElementById('box-colors').value||'').split(',').map(c=>c.trim()).filter(Boolean);
+        for(let i=0;i<x.length;i++) {
+          let vals = z.map(row=>row[i]);
+          let boxColor = userBoxColors[i] || couleurs[i % couleurs.length] || cmin;
+          data.push({
+            y: vals,
+            name: customNames[i] || x[i],
+            type: "box",
+            marker:{color: boxColor},
+            boxmean: true,
+            showlegend: showLegend
+          });
+        }
+        layout = {
+          margin:{t:45,r:5,l:45,b:30},
+          height: figHeight, width: figWidth,
+          yaxis:{automargin:true, showgrid: !!showGrid},
+          xaxis:{showgrid: !!showGrid},
+          showlegend: showLegend
+        };
+        if (ymin !== "") layout.yaxis.range = [Number(ymin), (ymax!=="")?Number(ymax):undefined];
+        if (xmin !== "") { layout.xaxis.range = [isNaN(xmin)?xmin:+xmin, (xmax!=="")?(isNaN(xmax)?xmax:+xmax):undefined]; }
+      }
+      else if(type==="hist") {
+        let all = z.flat();
+        data = [{
+          x: all, type:'histogram', marker:{color:cmax},
+          nbinsx:10,
+          name: title || "Histogramme",
+          showlegend: showLegend
+        }];
+        layout = {
+          margin:{t:45,r:5,l:45,b:30},
+          height: figHeight, width: figWidth,
+          yaxis:{automargin:true, showgrid: !!showGrid},
+          xaxis:{showgrid: !!showGrid},
+          showlegend: showLegend
+        };
+        if (ymin !== "" || ymax !== "") layout.yaxis.range = [(ymin!=="")?Number(ymin):undefined, (ymax!=="")?Number(ymax):undefined];
+        if (xmin !== "" || xmax !== "") layout.xaxis.range = [(xmin!=="")?(isNaN(xmin)?xmin:+xmin):undefined, (xmax!=="")?(isNaN(xmax)?xmax:+xmax):undefined];
+      }
+      layout.title = {
+        text: title || "Graphique",
+        font: {size:titleSize, family:titleFont, color: titleColor}
+      };
+      layout.legend = layout.legend || {};
+      if (legendTitle) {
+        layout.legend.title = { text: legendTitle };
+      }
+      layout.yaxis = layout.yaxis || {};
+      layout.xaxis = layout.xaxis || {};
+      layout.yaxis.title = {text: yaxis || 'Y', font: {size:yFontSize, color:yColor, family:yFont}};
+      layout.yaxis.tickfont = {size:yFontSize, color:yColor, family:yFont};
+      layout.xaxis.title = {text: xaxis || 'X', font: {size:xFontSize, color:xColor, family:xFont}};
+      layout.xaxis.tickfont = {size:xFontSize, color:xColor, family:xFont};
+      if (invertY) layout.yaxis.autorange = 'reversed';
+      Plotly.newPlot(plotDiv, data, layout, {responsive:true});
+      document.getElementById('btn-download').style.display = '';
+      return false;
+    }
+    function savePlot() {
+      Plotly.downloadImage('dataviz-plot', {format:"png", filename:"dataviz"});
+    }
+    window.openToolsViz = function() { document.getElementById('tools-viz-modal').style.display="flex"; }
+    window.closeToolsViz = function() { document.getElementById('tools-viz-modal').style.display="none"; }
+    // Initial dump (pour affichage initial des champs dynamiques au rechargement/1ère ouverture)
+    if(typeof window !== "undefined") {
+      setTimeout(function(){
+        updateLegendNamesInputs();
+        showBoxColorsIfNeeded();
+      }, 160);
+    }
+    </script>
   </main>
   <script>
     // Bg animé repris de management
@@ -290,222 +658,6 @@
     reader.readAsText(input.files[0]);
   }
 
-  // Parsing robuste, prend en compte tout délimiteur et n'écrase pas les colonnes,
-  // même si elles sont collées ou séparées par espaces multiples
-  function parseBioMatrix(txt) {
-    // Remplace toutes les , entre chiffres par un .
-    txt = txt.replace(/(\d),(\d)/g, '$1.$2');
-    let rows = txt.trim().split(/\r?\n/).filter(Boolean);
-    let sep = /[ \t,;]+/;
-    let head = rows[0].split(sep);
-    let x = head.slice(1);
-    let y = [], z = [];
-    for (let i = 1; i < rows.length; i++) {
-      let parts = rows[i].split(sep);
-      if (parts.length < 2) continue;
-      y.push(parts[0]);
-      z.push(parts.slice(1).map(v => Number(v)));
-    }
-    return { x, y, z };
-  }
-
-  function calcFastStats(arr) {
-    let numbers = arr.map(Number);
-    let n = numbers.length;
-    if(n===0) return {mean:NaN, std:NaN, min:NaN, max:NaN};
-    let mean = numbers.reduce((a,b)=>a+b,0)/n;
-    let std = Math.sqrt(numbers.reduce((a,b)=>a+Math.pow(b-mean,2),0)/n);
-    let min = Math.min(...numbers), max = Math.max(...numbers);
-    return {mean,std,min,max};
-  }
-
-  function drawViz() {
-    let txt = document.getElementById('datamatrix').value;
-    let type = document.getElementById('viz-type').value;
-    let title = document.getElementById("viz-title").value.trim();
-    let xaxis = document.getElementById("viz-xaxis").value.trim();
-    let yaxis = document.getElementById("viz-yaxis").value.trim();
-    let notes = document.getElementById("viz-notes").value.trim();
-    let plotDiv = document.getElementById('dataviz-plot');
-    let notesDiv = document.getElementById('viz-notes-display');
-    if(!txt.trim()) return false;
-    let {x, y, z} = parseBioMatrix(txt); // voir la fonction parseBioMatrix plus bas
-    if(x.length === 0 || y.length === 0) return false;
-    let cmin = document.getElementById('color-min').value;
-    let cmax = document.getElementById('color-max').value;
-    let config = {responsive:true,toImageButtonOptions:{filename:"dataviz"}};
-    let data = [], layout={}, showlegend=true;
-    const couleurs = [
-      "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
-      "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf",
-      "#f781bf", "#a65628", "#b2df8a", "#cab2d6", "#fdc086", "#ffff99"
-    ];
-    if(type === "heatmap") {
-      let baseHeight = 300;
-      let rowHeight = Math.max(18, 18 - Math.max(0, y.length - 12));
-      let newHeight = Math.max(baseHeight, y.length * rowHeight + 80);
-      data = [{
-        z: z, x: x, y: y, type:'heatmap',
-        colorscale: [[0, cmin], [1, cmax]],
-        colorbar:{title: yaxis || "Valeur"},
-        zmin: Math.min(...z.flat()),
-        zmax: Math.max(...z.flat())
-      }];
-      layout = {
-        title: {text: title || "Heatmap", font: { size: 28 }},
-        margin: { t: 55, r: 40, l: 90, b: 60 },
-        height: newHeight,
-        yaxis: {
-          automargin: true,
-          title: { text: yaxis || 'Y', font: { size: 17 }, standoff: 25 },
-          tickfont: { size: 11, family: "Arial" }
-        },
-        xaxis: {
-          title: { text: xaxis || 'X', font: { size: 19 }},
-          tickfont: { size: 13, family: "Arial" }
-        },
-        hovermode: 'closest'
-      };
-      showlegend = false;
-    }
-    else if(type === "bar") {
-      if(z.length==1) {
-        data = [{
-          x: x,
-          y: z[0],
-          type: "bar",
-          marker: {color: couleurs[0]},
-          name: y[0]
-        }];
-      } else {
-        data = y.map((gene,i)=>({
-          x: x,
-          y: z[i],
-          type:'bar',
-          name: gene,
-          marker: {color: couleurs[i % couleurs.length]}
-        }));
-      }
-      let allY = z.flat().filter(n=>!isNaN(n));
-      let minY = Math.min(...allY);
-      let maxY = Math.max(...allY);
-      let padding = (maxY - minY) * 0.1;
-      if (padding === 0 || !isFinite(padding)) padding = 0.5;
-      let baseHeight = 380;
-      let geneHeight = Math.max(18, 16 - Math.max(0, y.length-12));
-      let plotHeight = Math.max(baseHeight, y.length * geneHeight + 120);
-      layout = {
-        title: {text: title||"Barplot", font: {size: 26}},
-        margin: {t:55, r:35, l:70, b:60},
-        height: plotHeight,
-        yaxis: {
-          automargin: true,
-          title: yaxis || 'Y',
-          titlefont: {size: 17},
-          tickfont: {size: 13},
-          range: [minY-padding, maxY+padding]
-        },
-        xaxis: {
-          title: xaxis || 'X',
-          titlefont: {size: 17},
-          tickfont: {size: 13}
-        },
-        barmode:'group'
-      };
-    }
-    else if(type === "scatter") {
-      let allY = z.flat().filter(n=>!isNaN(n));
-      let minY = Math.min(...allY);
-      let maxY = Math.max(...allY);
-      let padding = (maxY - minY) * 0.1;
-      if (!isFinite(padding) || padding === 0) padding = 0.5;
-      // Nuage XY (un seul scatter, tout en noir, pas de stats)
-      if(y.length === 1) {
-        let scatterX = x.map(xx => Number(xx));
-        let scatterY = z[0];
-        data = [{
-          x: scatterX,
-          y: scatterY,
-          type: "scatter",
-          mode: "markers",
-          marker: {color: "black", size: 7},
-          showlegend: false
-        }];
-      } else {
-        // fallback multi-séries
-        data = y.map((gene,i) => ({
-          x: x,
-          y: z[i],
-          type: "scatter",
-          mode: "markers",
-          marker: {color: "black", size: 7},
-          name: gene
-        }));
-      }
-      layout = {
-        title: {text: title||"Nuage de points", font: {size: 26}},
-        margin: {t:55, r:35, l:65, b:60},
-        yaxis: {
-          automargin: true,
-          title: yaxis||'Y',
-          titlefont: {size:17, color: "#33a087"},
-          tickfont: {size:15, color: "#33a087"},
-          range: [minY-padding, maxY+padding],
-          linecolor:'#932432',
-          linewidth: 2
-        },
-        xaxis: {
-          title: xaxis||'X',
-          titlefont: {size:17, color: "#33a087"},
-          tickfont: {size:15, color: "#33a087"},
-          linecolor:'#932432',
-          linewidth: 2
-        },
-        showlegend: false
-      };
-    }
-    else if(type==="box") {
-      data = [];
-      for(let i=0;i<x.length;i++) {
-        let vals = z.map(row=>row[i]);
-        data.push({
-          y: vals, name: x[i], type: "box", marker:{color:cmin},
-          boxmean: true
-        });
-      }
-      layout = {
-        title: title||"Boxplot",
-        margin:{t:45,r:5,l:45,b:30},
-        yaxis:{automargin:true, title:yaxis||'Y'},
-        xaxis:{title:xaxis||'X'}
-      };
-      showlegend = false;
-    }
-    else if(type==="hist") {
-      let all = z.flat();
-      data = [{
-        x: all, type:'histogram', marker:{color:cmax},
-        nbinsx:10
-      }];
-      layout = {
-        title: title||"Histogramme",
-        margin:{t:45,r:5,l:45,b:30},
-        yaxis:{automargin:true, title:yaxis||'Y'},
-        xaxis:{title:xaxis||'X'}
-      };
-      showlegend = false;
-    }
-    layout.showlegend = showlegend;
-    Plotly.newPlot(plotDiv, data, layout, {responsive:true});
-    document.getElementById('btn-download').style.display = '';
-    notesDiv.style.display = notes ? "" : "none";
-    notesDiv.innerHTML = notes ? '<b>Note :</b> ' + notes : '';
-    return false;
-  }
-
-  function savePlot() {
-    Plotly.downloadImage('dataviz-plot', {format:"png", filename:"dataviz"});
-  }
   // JS pour la fenetre modal clustering
   function openGeneClusterModal() {
     document.getElementById('geneClusterModal').style.display = 'block';
